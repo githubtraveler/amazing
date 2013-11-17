@@ -4,28 +4,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-	section {
-		height: 800px;
-	}
+	section { padding-top: 50px; }
+	/*section { margin-top: -50px;}*/
 
-	section {
-		padding-top: 50px;
-	}
-
-	#portfolio {
-		background: hsla(206,80%,95%,1);
-	}
-
-	#contact-info {
-		background: hsla(0,0%,95%,1);
-	}
+	/* tmp */ section { height: 600px; }
+	.nav li a i { margin-right: 0.75em;}
+	#home { background: hsla(192,100%,32%,1); color: white; }
+ 	#portfolio, #contact-info { background: hsla(0,0%,95%,1); }
+ 	.stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien. Cras metus leo, ultrices id auctor a, tempus at purus. Vivamus suscipit iaculis lectus tincidunt tincidunt. Proin tristique porta nisi ac gravida. Nunc sagittis, libero a iaculis tincidunt, quam augue laoreet justo, ut cursus neque odio nec risus. Proin orci velit, dapibus et nibh id, bibendum bibendum ante."; }
 </style>
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
 
 <body data-spy="scroll" data-target="header">
-	<header class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
 		<div class="container">
 			<nav>
 				<div class="navbar-header">
@@ -39,36 +32,41 @@
 				</div>
 				<div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="#portfolio">Portfolio</a></li>
-						<li><a href="#team">Team</a></li>
-						<li><a href="#contact-info">Contact Info</a></li>
+						<li><a href="#home"><i class="glyphicon glyphicon-home"></i>About Us</a></li>
+						<li><a href="#portfolio"><i class="glyphicon glyphicon-briefcase"></i>Portfolio</a></li>
+						<li><a href="#team"><i class="glyphicon glyphicon-user"></i>Team</a></li>
+						<li><a href="#contact-info"><i class="glyphicon glyphicon-envelope"></i>Contact Info</a></li>
 					</ul>
 				</div>
 			</nav>
 		</div>
 	</header>
 
-	<section class="intro">
+	<section id="home">
 		<div class="container">
-			<h1>Intro</h1>
+			<h1>Why Us?</h1>
+			<span class="stub"></span>
 		</div>
 	</section>
 
 	<section id="portfolio">
 		<div class="container">
 			<h1>Portfolio</h1>
+			<span class="stub"></span>
 		</div>
 	</section>
 
 	<section id="team">
 		<div class="container">
 			<h1>Team</h1>
+			<span class="stub"></span>
 		</div>
 	</section>
 
 	<section id="contact-info">
 		<div class="container">
 			<h1>Contact Info</h1>
+			<span class="stub"></span>
 		</div>
 	</section>
 
