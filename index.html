@@ -9,11 +9,11 @@
 
 	.nav li a i { margin-right: 0.75em;}
 	#home { background: hsla(192,100%,32%,1); color: white; }
- 	#clients, #contact-info { background: hsla(0,0%,95%,1); }
- 	.stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien. Cras metus leo, ultrices id auctor a, tempus at purus. Vivamus suscipit iaculis lectus tincidunt tincidunt. Proin tristique porta nisi ac gravida. Nunc sagittis, libero a iaculis tincidunt, quam augue laoreet justo, ut cursus neque odio nec risus. Proin orci velit, dapibus et nibh id, bibendum bibendum ante."; }
- 	.sm-stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien."; }
- 	i.huge {font-size: 1000%; padding: 0.2em; color: #999; width: auto !important;}
- 	i.huge:hover { color: hsla(192,100%,32%,1);}
+	#clients, #contact-us { background: hsla(0,0%,95%,1); }
+	.stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien. Cras metus leo, ultrices id auctor a, tempus at purus. Vivamus suscipit iaculis lectus tincidunt tincidunt. Proin tristique porta nisi ac gravida. Nunc sagittis, libero a iaculis tincidunt, quam augue laoreet justo, ut cursus neque odio nec risus. Proin orci velit, dapibus et nibh id, bibendum bibendum ante."; }
+	.sm-stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien."; }
+	i.huge {font-size: 1000%; padding: 0.2em; color: #999; width: auto !important;}
+	i.huge:hover { color: hsla(192,100%,32%,1);}
 </style>
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
@@ -38,7 +38,7 @@
 						<li><a href="#services"><i class="glyphicon glyphicon-info-sign"></i>Services</a></li>
 						<!-- <li><a href="#portfolio"><i class="glyphicon glyphicon-usd"></i>Portfolio</a></li> -->
 						<!-- <li><a href="#team"><i class="glyphicon glyphicon-user"></i>Team</a></li> -->
-						<li><a href="#contact-info"><i class="glyphicon glyphicon-envelope"></i>Contact Us</a></li>
+						<li><a href="#contact-us"><i class="glyphicon glyphicon-envelope"></i>Contact Us</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</section>
-<!--
+
 	<section id="portfolio">
 		<div class="container">
 			<h1>Some of Our Clients</h1>
@@ -105,7 +105,7 @@
 			<br><a class="btn btn-info btn-lg">See All</a>
 		</div>
 	</section>
- -->
+
 <!--
 	<section id="team">
 		<div class="container">
@@ -114,19 +114,57 @@
 		</div>
 	</section>
  -->
-	<section id="contact-info">
+	<section id="contact-us">
 		<div class="container">
-			<address>
-				<strong>R&amp;D Arts Inc.</strong> <br>
-				1150-21331 Gordon Way, <br>
-				Richmond, BC V6W 1J9 <br>
-				Phohe: +1 (604) 370-1050 <br>
-				Fax: +1 (604) 370-1051 <br>
-				E-mail: contact@rd-arts.com
-			</address>
+			<div id="map-canvas" style="width:100%; height:400px;"></div>
 		</div>
 	</section>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+	<script>
+		var map, geocoder, infoWindow;
+		var mapLocation = new google.maps.LatLng(49.1678005, -122.9878654);
+		var mapCenter   = new google.maps.LatLng(49.19, -122.9878654);
+		var mapCanvas = document.getElementById('map-canvas');
+
+		function initialize() {
+			var mapOptions, marker;
+
+			mapOptions = {
+				zoom: 12,
+				center: mapCenter
+			};
+
+			map = new google.maps.Map(mapCanvas, mapOptions);
+
+			marker = new google.maps.Marker({
+				position: mapLocation,
+				map: map,
+				title: 'R&D Arts Inc.'
+			});
+
+			infoWindow = new google.maps.InfoWindow({
+				content: "<div id='contact-info'>" +
+				         "<strong>R&D Arts Inc.</strong><br>"+
+				         "<address>1150-21331 Gordon Way, <br>" +
+				         "Richmond, BC V6W 1J9, Canada<br></address>" +
+				         "Phohe: +1 (604) 370-1050<br>" +
+                 "Fax: +1 (604) 370-1051<br>" +
+                 "E-mail: contact@rd-arts.com" +
+                 "</div>"
+			});
+
+			var infoWindowOpen = function() {
+		    infoWindow.open(map, marker);
+		  };
+
+			infoWindowOpen();
+			google.maps.event.addListener(marker, 'click', infoWindowOpen);
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
 </body>
