@@ -4,16 +4,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-	section { padding: 75px 0 50px 0; }
+	section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 	/*section { min-height: 500px;}*/
 
 	.nav li a i { margin-right: 0.75em;}
 	#home { /*background: hsla(192,100%,32%,1); color: white;*/  background: #f0f0f0 url('diagram.jpg') no-repeat 50% 0; }
-	#clients, #contact-us { background: hsla(0,0%,95%,1); }
+	#technologies { background: hsla(0,0%,95%,1); }
 	.stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien. Cras metus leo, ultrices id auctor a, tempus at purus. Vivamus suscipit iaculis lectus tincidunt tincidunt. Proin tristique porta nisi ac gravida. Nunc sagittis, libero a iaculis tincidunt, quam augue laoreet justo, ut cursus neque odio nec risus. Proin orci velit, dapibus et nibh id, bibendum bibendum ante."; }
 	.sm-stub:before { content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a imperdiet odio, quis convallis sapien. Donec viverra laoreet nibh, non dictum sem ultrices ac. Sed tincidunt mauris ac pharetra facilisis. Phasellus ipsum erat, aliquet nec aliquet eu, tristique et sapien."; }
 	i.huge {font-size: 1000%; padding: 0.2em; color: #999; width: auto !important;}
 	i.huge:hover { color: hsla(192,100%,32%,1);}
+
+	.container > h2 { margin-bottom: 2em; }
 </style>
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
@@ -49,7 +51,7 @@
 		<div class="container">
 
 			<div class="row">
-				<h1 style="text-shadow: 0 2px 2px #333; font-size: 500%; color: #0574c9;">We Turn Ideas into Function</h1>
+				<h1 style="text-shadow: 0 2px 2px #333; font-size: 500%; color: #0574c9; padding: 1em 0;">We Turn Ideas into Function</h1>
 				<div class="col-sm-6">
 					<h3>We can make desktop and mobile apps, cloud service and go through all the wonders of any software engineering methodology you desire. </h3>
 				</div>
@@ -60,35 +62,77 @@
 
 	<section id="services">
 		<div class="container">
+			<h2 class="text-center">Services</h2>
 			<div class="row">
 				<div class="col-sm-3">
 					<img class="img-responsive" src="http://www.mobify.com/static/img/feature-all-supported.2.png" alt="">
-					<h2>Desktop Applications</h2>
+					<h4>Desktop Applications</h4>
 					<p>We develop for Mac and Windows platforms.</p>
 				</div>
 
 				<div class="col-sm-3">
 					<img class="img-responsive" src="http://www.mobify.com/static/img/feature-one-web.2.png" alt="">
-					<h2>Mobile Applications</h2>
+					<h4>Mobile Applications</h4>
 					<p>Making apps for iOs and Android platforms.</p>
 				</div>
 
 				<div class="col-sm-3">
 					<img class="img-responsive" src="http://www.mobify.com/static/img/feature-control.2.png" alt="">
-					<h2>Server Side</h2>
-					<p>Quickly develop your own server capabilities including cloud-based services and APIs. We are experts in both open-source and proprietary technologies</p>
+					<h4>Server Side</h4>
+					<p>Quickly develop your own server capabilities including cloud-based services and APIs.
+					We are experts in both open-source and proprietary technologies</p>
 				</div>
 
 				<div class="col-sm-3">
 					<img class="img-responsive" src="http://www.inspirefusion.com/media/2012/browsers_war_illustration.jpg" alt="">
-					<h2>Web</h2>
+					<h4>Web</h4>
 					<p>We support all the latest browsers.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section id="portfolio">
+	<section id="technologies">
+		<style scoped>
+			.tmp {background: white; border-radius: 5px; border: 1px solid silver}
+		</style>
+		<div class="container">
+			<h2 class="text-center">Technologies</h2>
+			<div class="row">
+				<div class="col-sm-4">
+					<p class="text-center" style="height: 180px"><img class="tmp" src="3d.png" alt=""></p>
+					<h4>Object Recognition</h4>
+					<p>Image and text recognition, recognition of shapes and edges.</p>
+				</div>
+				<div class="col-sm-4">
+					<p class="text-center" style="height: 180px"><img class="tmp" src="media.png" alt=""></p>
+					<h4>Digital Media</h4>
+					<p>Video streaming, online chat, multicast, video editing.</p>
+				</div>
+				<div class="col-sm-4">
+					<p class="text-center" style="height: 180px"><img class="tmp" src="present.png" alt=""></p>
+					<h4>Data Visualization</h4>
+					<p>Presenting charts and tables on the front-end.</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<p class="text-center" style="height: 180px"><img class="tmp" src="gis.png" alt=""></p>
+					<h4>Cartography and GIS</h4>
+					<p>We develop software to capture, store, manipulate, analyze, and visualize geospatial data.</p>
+				</div>
+				<div class="col-sm-4">
+					<p class="text-center" style="height: 180px"><img class="tmp" src="reality.png" alt=""></p>
+					<h4>Augmented Reality</h4>
+					<p>Real world representation using mobile device camera, recognize positions of objects on the screen,
+					bind their screen position to real location, retrieve information about the object,
+					render the retrieved information over the screen.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!-- 	<section id="portfolio">
 		<div class="container">
 			<h1>Some of Our Clients</h1>
 			<br>
@@ -108,7 +152,7 @@
 			<br><a class="btn btn-info btn-lg">See All</a>
 		</div>
 	</section>
-
+ -->
 <!--
 	<section id="team">
 		<div class="container">
@@ -124,7 +168,7 @@
 	</section> -->
 
 
-	<div id='contact-info'>
+	<div id="contact-info" style="visibility: hidden; width: 20em; height: 15em;">
 		<strong>R&amp;D Arts Inc.</strong><br>
 		<address>
 			1150-21331 Gordon Way, <br>
@@ -142,7 +186,7 @@
 		</p>
 	</div>
 
-	<div id="map-canvas" style="width:100%; height:400px;"></div>
+	<div id="map-canvas" style="width:100%; height:600px;"></div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
@@ -151,7 +195,6 @@
 	<script>
 		var map, geocoder, infoWindow;
 		var mapLocation = new google.maps.LatLng(49.1678005, -122.9878654);
-		var mapCenter   = new google.maps.LatLng(49.19, -122.9878654);
 		var mapCanvas = document.getElementById('map-canvas');
 
 		function initialize() {
@@ -162,9 +205,10 @@
 		  };
 
 			mapOptions = {
-				zoom       : 12,
-				center     : mapCenter,
-				scrollwheel: false
+				zoom       : 16,
+				center     : mapLocation,
+				scrollwheel: false,
+				draggable  : false
 			};
 
 			map = new google.maps.Map(mapCanvas, mapOptions);
@@ -176,7 +220,11 @@
 			});
 
 			infoWindow = new google.maps.InfoWindow({
-				content: document.getElementById('contact-info')
+				content       : document.getElementById('contact-info')
+			});
+
+			google.maps.event.addListener(infoWindow, "domready", function () {
+				$("#contact-info").css("visibility", "visible");
 			});
 
 			infoWindowOpen();
