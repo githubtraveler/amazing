@@ -15,7 +15,14 @@
 	i.huge {font-size: 1000%; padding: 0.2em; color: #999; width: auto !important;}
 	i.huge:hover { color: hsla(192,100%,32%,1);}
 
-	.container > h2 { margin-bottom: 2em; }
+	.container > h2 { margin-bottom: 2em; display: table; margin: 1em auto;}
+	h2:after {
+		content: "";
+		display: block;
+		height: 0.1em;
+		margin: 0.5em -2em;
+		background: linear-gradient(to right, hsla(212,67%,36%,0) 0%,hsla(206,99%,40%,1) 50%,hsla(206,70%,70%,0) 100%);
+	}
 </style>
 
 <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
@@ -62,7 +69,7 @@
 
 	<section id="services">
 		<div class="container">
-			<h2 class="text-center">Services</h2>
+			<h2>Services</h2>
 			<div class="row">
 				<div class="col-sm-3">
 					<img class="img-responsive" src="http://www.mobify.com/static/img/feature-all-supported.2.png" alt="">
@@ -97,7 +104,7 @@
 			.tmp {background: white; border-radius: 5px; border: 1px solid silver}
 		</style>
 		<div class="container">
-			<h2 class="text-center">Technologies</h2>
+			<h2>Technologies</h2>
 			<div class="row">
 				<div class="col-sm-4">
 					<p class="text-center" style="height: 180px"><img class="tmp" src="3d.png" alt=""></p>
@@ -135,9 +142,7 @@
 
 	<section id="portfolio">
 		<div class="container">
-			<h1 class="text-center">Portfolio</h1>
-			<br>
-			<br>
+			<h2>Portfolio</h2>
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			  <ol class="carousel-indicators">
 			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
