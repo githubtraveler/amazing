@@ -1,0 +1,23 @@
+section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
+
+.nav li a i { margin-right: 0.75em;}
+
+#home { background: #f0f0f0 url('diagram.jpg') no-repeat 50% 0; }
+#technologies { background: hsla(0,0%,95%,1); }
+
+i.huge {font-size: 1000%; padding: 0.2em; color: #999; width: auto !important;}
+i.huge:hover { color: hsla(192,100%,32%,1);}
+
+.container > h2 {
+	margin-bottom: 2em;
+	display      : table;
+	margin       : 1em auto;
+}
+
+.container > h2:after {
+	content   : "";
+	display   : block;
+	height    : 0.1em;
+	margin    : 0.5em -2em;
+	background: linear-gradient(to right, hsla(212,67%,36%,0) 0%,hsla(206,99%,40%,1) 50%,hsla(206,70%,70%,0) 100%);
+}
