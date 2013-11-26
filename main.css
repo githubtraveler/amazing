@@ -1,8 +1,10 @@
+#header { background: linear-gradient(to bottom, hsla(0,0%,100%,1) 0%,hsla(0,0%,95%,1) 100%); }
+
 section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 
 .nav li a i { margin-right: 0.75em;}
 
-#services { background: #f0f0f0 url('board-bg.jpg') no-repeat 50% 50%; color: white; }
+#services { background: #f0f0f0 url('board-bg.jpg') no-repeat 50% 0%; color: white; }
 #services h4 { text-align: center;}
 
 #technology { background: hsla(0,0%,95%,1); }
