@@ -6,7 +6,7 @@ section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 #services h4 { text-align: center;}
 
 #technology { background: hsla(0,0%,95%,1); }
-#technology .row { margin: 1em;}
+#technology .row { margin: 1.5em 0;}
 
 i.huge {font-size: 1000%; padding: 0.2em; color: #999; width: auto !important;}
 i.huge:hover { color: hsla(192,100%,32%,1);}
