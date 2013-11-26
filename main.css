@@ -2,13 +2,13 @@ section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 
 .nav li a i { margin-right: 0.75em;}
 
-#services { background: #f0f0f0 url('board-bg.jpg') no-repeat 50% 50%; color: white; background-attachment:fixed;}
+#services { background: #f0f0f0 url('board-bg.jpg') no-repeat 50% 50%; color: white; }
 #services h4 { text-align: center;}
 
 #technology { background: hsla(0,0%,95%,1); }
 #technology .row { margin: 1.5em 0;}
 
-.sticky {
+.-sticky {
 	background:hsla(50, 60%, 85%, 0.95);
 	color: black;
 	padding: 1em;
