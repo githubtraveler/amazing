@@ -1,11 +1,21 @@
+#header {
+	background: linear-gradient(to bottom, hsla(0,0%,100%,1) 0%, hsla(0,0%,80%,1) 100%);
+	border: none;
+	box-shadow: 0 2px 4px hsla(0, 0%, 20%, 0.75);
+}
+
+.details {text-align: center;}
+/*#header a { color: black; }
+#header a:hover { color: hsl(192, 100%, 54%);}*/
+
 section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 
 .nav li a i { margin-right: 0.75em;}
 
-#services { background: #f0f0f0 url('board-bg.jpg') no-repeat 50% 50%; color: white; }
+#services { background: hsla(195, 100%, 27%, 1) url('board-bg.jpg') no-repeat 50% 0%; color: white; }
 #services h4 { text-align: center;}
 
-#technology { background: hsla(0,0%,95%,1); }
+#technology { background: hsl(0,0%,95%); }
 #technology .row { margin: 1.5em 0;}
 
 .-sticky {
