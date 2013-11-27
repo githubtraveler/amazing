@@ -4,6 +4,8 @@
 	box-shadow: 0 2px 4px hsla(0, 0%, 20%, 0.75);
 }
 
+#motto {text-shadow: 0 2px 2px #333; font-size: 300%; color: white; margin: 0.5em 0; text-align: center;}
+
 .details {text-align: center;}
 /*#header a { color: black; }
 #header a:hover { color: hsl(192, 100%, 54%);}*/
@@ -43,3 +45,20 @@ i.huge:hover { color: hsla(192,100%,32%,1);}*/
 }*/
 
 .container h4 { font-size: 200%; }
+
+
+@media all and (min-width: 768px) {
+	#motto {
+		font-size: 400%;
+	}
+}
+
+@media all and (min-width: 992px) {
+	#motto {
+		font-size: 500%;
+	}
+}
+/*
+768
+992
+1200*/
