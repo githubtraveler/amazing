@@ -6,7 +6,7 @@
 
 #motto {text-shadow: 0 2px 2px #333; font-size: 300%; color: white; margin: 0.5em 0; text-align: center;}
 
-.details {text-align: center;}
+.details { color: hsl(0, 0%, 80%); }
 /*#header a { color: black; }
 #header a:hover { color: hsl(192, 100%, 54%);}*/
 
