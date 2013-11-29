@@ -25,9 +25,12 @@ section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 
 #services h4 { text-align: center;}
 
+
 #technology { background: hsl(0,0%,95%); }
-#technology .img-responsive { margin: 1em auto; }
-/*#technology .row { margin: 1.5em 0;}*/
+#technology .icon { width: 100px;  height: auto; float: left; margin-top: 1em;}
+#technology .description { margin-left: 100px; padding: 0 1em;}
+#technology .item { margin: 1em 0;}
+#services .icon { margin: 1em; height: 100px; width: auto;}
 
 .sticky {
 	/*background:hsla(50, 60%, 85%, 0.95);*/
