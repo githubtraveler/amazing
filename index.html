@@ -241,10 +241,13 @@
 	<script src="map.js"></script>
 	<script>
 	(function () {
-		var $navbar = $("#navbar-collapse");
+		var $menu   = $("#navbar-collapse");
+		var $toggle = $("#header .navbar-toggle");
 
-		$navbar.on("click", "a", function () {
-			$navbar.collapse("hide");
+		$menu.on("click", "a", function () {
+			if ($toggle.is(":visible") && $menu.is(":visible")) {
+				$menu.collapse("hide");
+			}
 		});
 	// 	var getCallback = function (text) {
 	// 		return function () {
