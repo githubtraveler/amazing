@@ -1,5 +1,5 @@
 #header {
-	background: linear-gradient(to bottom, hsla(0,0%,100%,1) 0%, hsla(0,0%,80%,1) 100%);
+	background: linear-gradient(to bottom, hsla(0,0%,100%,1) 0%, hsla(0,0%,80%,1) 50px, hsla(0,0%,80%,1) 100%);
 	box-shadow: 0 2px 4px hsla(0, 0%, 20%, 0.75);
 	border: none;
 }
