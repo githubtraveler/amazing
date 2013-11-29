@@ -11,10 +11,11 @@
 		};
 
 		mapOptions = {
-			zoom       : 16,
-			center     : mapLocation,
-			scrollwheel: false,
-			draggable  : false
+			zoom             : 16,
+			center           : mapLocation,
+			scrollwheel      : false,
+			draggable        : false,
+			keyboardShortcuts: false
 		};
 
 		map = new google.maps.Map(mapCanvas, mapOptions);
