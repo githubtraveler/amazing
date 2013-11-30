@@ -39,4 +39,11 @@
 	}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
+
+	$(window).on("resize", function () {
+		var center = map.getCenter();
+
+		google.maps.event.trigger(map, 'resize');
+		map.setCenter(center);
+	});
 }());
