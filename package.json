@@ -1,0 +1,13 @@
+{
+	"name": "rd-arts.com",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/mgerzon/amazing.git"
+	},
+	"dependencies": {
+		"connect": "*"
+	}
+}
