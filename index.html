@@ -26,7 +26,7 @@
 						<li><a href="#technology"><i class="glyphicon glyphicon-cog"></i>Technology</a></li>
 						<!-- <li><a href="#portfolio"><i class="glyphicon glyphicon-briefcase"></i>Portfolio</a></li> -->
 						<!-- <li><a href="#team"><i class="glyphicon glyphicon-user"></i>Team</a></li> -->
-						<li><a href="#map-canvas"><i class="glyphicon glyphicon-envelope"></i>Contact Us</a></li>
+						<li><a href="#map"><i class="glyphicon glyphicon-envelope"></i>Contact Us</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -206,44 +206,31 @@
 	</section>
  -->
 
-	<div id="contact-info" style="visibility: hidden; width: 20em; height: 14em;">
-		<strong>R&amp;D Arts Inc.</strong><br>
-		<address>
-			1150-21331 Gordon Way, <br>
-			Richmond, BC, V6W 1J9, Canada
-		</address>
 
-		<p><img src="img/phone-and-email.png" style="height:2.25em;margin-bottom:1em;"></p>
+	<div id="map" style="width:100%; height:600px;"></div>
 
-		<p>
-			<a href="https://www.linkedin.com/company/r-&amp;-d-arts.com" target="_blank"><img src="img/linkedin.png" style="height:1.8em; width:auto;" alt=""></a>
-		</p>
-	</div>
-	<div id="map-canvas" style="width:100%; height:600px;"></div>
+	<footer class="text-center">
+		<div class="container">
+			<div id="contact-info" style="visibility: hidden; width: 20em; height: 12em;">
+				<strong>R&amp;D Arts Inc.</strong><br>
+				<address>
+					1150-21331 Gordon Way, <br>
+					Richmond, BC, V6W 1J9, Canada
+				</address>
+				<p><img src="img/phone-and-email.png" style="height:2.25em;margin-bottom:1em;"></p>
+			</div>
+
+			<p>&copy; R&amp;D Arts, Inc.</p>
+			<script type="IN/FollowCompany" data-id="1444332" data-counter="none"></script>
+		</div>
+	</footer>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	<script src="tweaks.js"></script>
+
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script src="map.js"></script>
-	<script>
-	(function () {
-		var $menu   = $("#navbar-collapse");
-		var $toggle = $("#header .navbar-toggle");
 
-		$menu.on("click", "a", function () {
-			if ($toggle.is(":visible") && $menu.is(":visible")) {
-				$menu.collapse("hide");
-			}
-		});
-	// 	var getCallback = function (text) {
-	// 		return function () {
-	// 			$($(this).parent().find("[data-toggle=collapse]")[0]).text(text);
-	// 		};
-	// 	};
-
-	// 	$(".details")
-	// 		.on("show.bs.collapse", getCallback("less"))
-	// 		.on("hide.bs.collapse", getCallback("more"));
-	}());
-	</script>
+	<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US </script>
 </body>
