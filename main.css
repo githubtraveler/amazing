@@ -58,7 +58,11 @@ section { padding: 50px 0 50px 0; border-bottom: 1px solid silver;}
 
 #contact-info { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: normal;}
 
-footer { background: hsl(0, 0%, 20%); color: hsl(0, 0%, 75%); padding: 1em 0;}
+footer {
+	background: hsl(0,0%,95%) ;
+	border-top: 1px solid silver;
+ 	padding: 1em 0;
+}
 
 @media all and (min-width: 768px) {
 	#motto {
@@ -71,7 +75,9 @@ footer { background: hsl(0, 0%, 20%); color: hsl(0, 0%, 75%); padding: 1em 0;}
 		font-size: 500%;
 	}
 }
+
 /*
-768
-992
-1200*/
+phone   <= 768
+tablet  >= 992
+desktop >= 1200
+*/
