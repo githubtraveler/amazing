@@ -12,7 +12,7 @@
 		};
 
 		mapOptions = {
-			zoom             : 16,
+			zoom             : 11,
 			center           : mapLocation,
 			scrollwheel      : false,
 			draggable        : false,
