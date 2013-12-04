@@ -26,7 +26,7 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 #services .icon { margin: 1em; height: 100px; width: auto;}
 
 #technology { background: hsl(0,0%,95%); }
-#technology .icon { width: 100px;  height: auto; float: left; margin-top: 1em;}
+#technology .icon { max-width: 100px; max-height: 100px; float: left; margin-top: 1em; }
 #technology .description { margin-left: 100px; padding: 0 1em;}
 #technology .item { margin: 1em 0;}
 
