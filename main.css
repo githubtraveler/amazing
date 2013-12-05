@@ -12,6 +12,8 @@
 	text-align: center;
 }
 
+abbr[title] { border: none;}
+
 .details { color: hsl(200, 50%, 80%); font-size: 80%;}
 
 section { padding: 30px 0 ; border-bottom: 1px solid silver;}
