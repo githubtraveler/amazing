@@ -14,15 +14,15 @@ $(document).ready(function () {
 		});
 	}());
 
-	(function appendToggle() {
-		$("#services .details").each(function (){
-			var $this = $(this);
+	// (function appendToggle() {
+	// 	$("#services .details").each(function (){
+	// 		var $this = $(this);
 
-			$("<div class='text-center small' data-toggle='collapse' data-target='#" + $this.attr("id") + "'>" +
-				getChevronHtml("down") +
-			"</div >").insertAfter($this);
-		});
-	}());
+	// 		$("<div class='text-center small' data-toggle='collapse' data-target='#" + $this.attr("id") + "'>" +
+	// 			getChevronHtml("down") +
+	// 		"</div >").insertAfter($this);
+	// 	});
+	// }());
 
 	(function buttonToggle() {
 		var getCallback = function (html) {
