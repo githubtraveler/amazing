@@ -4,13 +4,17 @@
 			var $this = $(this);
 			var $address = $this.find("address");
 			var addressEncoded = encodeURI($address.text());
-			var mapImgUrl;
+			var mapImgUrl, scale, deltaWidth;
 
 			$address.hide();
-
+			$this.attr("href", "#")
 			$this.css({
-				"display" : "block",
-				"width": "100%"
+				"display"            : "block",
+				"width"              : "100%",
+				"color"              : "black",
+				"text-shadow"        : "0 0 2px white",
+				"background-repeat"  : "no-repeat",
+				"background-position": "50% 50%"
 			});
 
 			if (!$this.data("map-width")) {
@@ -19,9 +23,11 @@
 
 			$this.height($this.width());
 
-			if (($this.width() - $this.data("map-width")) > ($this.data("map-width") / 4)) {
+			deltaWidth = $this.width() - $this.data("map-width");
+
+			if (deltaWidth > ($this.data("map-width") / 4)) {
+				console.log("getting new map", $this.data("map-width"), $this.width());
 				$this.data("map-width", $this.width());
-				console.log("getting new map", $this.data("map-width"));
 
 				mapImgUrl = "http://maps.google.com/maps/api/staticmap?" +
 					"sensor=false&" + "scale=2&" +
@@ -29,16 +35,14 @@
 					"zoom=" + $this.data("zoom") + "&" +
 					"markers=" + addressEncoded + "&" + "center=" + addressEncoded;
 
-				$this.css({
-					"color": "black",
-					"text-shadow": "0 0 2px white",
-					"background-repeat"  : "no-repeat",
-					"background-position": "50% 50%",
-					"background-size"    : "100% 100%",
-					"background-image"   : "url('" + mapImgUrl + "')"
-				});
+				$this.css({"background-image"   : "url('" + mapImgUrl + "')"});
 			}
-		});
+
+ 			scale = (deltaWidth <= 0) ? (Math.round(100 * $this.data("map-width") / $this.width())) : 100;
+ 			scale += "%";
+ 			console.log(scale);
+			$this.css({"background-size": scale + " " + scale});
+ 		});
 	};
 
 
