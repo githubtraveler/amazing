@@ -23,6 +23,7 @@
 			}
 
 			$this.height($this.width());
+			// $("#contact-info .well").outerHeight($this.outerWidth());
 
 			deltaWidth = $this.width() - $this.data("map-width");
 
@@ -41,8 +42,10 @@
 
  			scale = (deltaWidth <= 0) ? (Math.round(100 * $this.data("map-width") / $this.width())) : 100;
  			scale += "%";
- 			console.log(scale);
-			$this.css({"background-size": scale + " " + scale});
+
+			// $this.css({"background-size": scale + " " + scale});
+			$this.css({"background-size": scale});
+			$this.css({"height": $("#contact-info .well").outerHeight() + "px"});
  		});
 	};
 
