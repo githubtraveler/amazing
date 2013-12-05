@@ -6,9 +6,9 @@
 
 #motto {
 	text-shadow: 0 2px 2px #333;
-	font-size: 300%;
+	font-size: 200%;
 	color: white;
-	margin-top: 0.5em;
+	margin-top: 50px;
 	text-align: center;
 }
 
@@ -68,7 +68,7 @@ footer {
 
 @media all and (min-width: 768px) {
 	#motto {
-		font-size: 400%;
+		font-size: 300%;
 	}
 }
 
