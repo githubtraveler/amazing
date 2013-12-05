@@ -7,7 +7,8 @@
 			var mapImgUrl, scale, deltaWidth;
 
 			$address.hide();
-			$this.attr("href", "#")
+			$this.attr("href", "http://maps.google.com/maps?q=" + addressEncoded);
+
 			$this.css({
 				"display"            : "block",
 				"width"              : "100%",
