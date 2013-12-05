@@ -19,7 +19,7 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 #header .nav li a i { margin-right: 0.75em;}
 #header .navbar-toggle { background: hsl(0, 0%, 95%); border-color: hsl(0, 0%, 75%);}
 
-#summary { color: hsl(0, 0%, 95%);}
+#summary { color: hsl(0, 0%, 95%); margin-top: 2em; }
 
 #services { background: hsla(195, 100%, 27%, 1) url('img/noise.png'); color: white; }
 #services h4 { text-align: center;}
