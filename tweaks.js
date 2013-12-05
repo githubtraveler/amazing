@@ -2,10 +2,12 @@
 	var drawMap = function (){
 		$(".static-gmap").each(function () {
 			var $this = $(this);
-			var addressEncoded = encodeURI($this.text());
+			var $address = $this.find("address");
+			var addressEncoded = encodeURI($address.text());
 			var mapImgUrl;
 
-			// $this.text("");
+			$address.hide();
+
 			$this.css({
 				"display" : "block",
 				"width": "100%"
