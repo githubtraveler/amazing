@@ -4,11 +4,13 @@
 			var $el = $(element);
 
 			this.$element       = $el;
-			this.addressEncoded = encodeURI($.trim($el.text()));
+			this.addressEncoded = encodeURI($.trim($el.find("address").text()));
 			this.mapWidth       = 0;
 			this.mapHeight      = 0;
 
-			$el.text("");
+			if ($el.is("a")) {
+				$el.attr("href", "http://maps.google.com/maps?q=" + this.addressEncoded);
+			}
 
 			$el.css({
 				"display"            : "block",
