@@ -51,7 +51,7 @@
 				var scale = getScalePercentage({"width":this.mapWidth, "height":this.mapHeight}, elSize);
 
 				var boost = function (k, n) {
-					var result = Math.floor(k * n);
+					var result = Math.round(k * n);
 
 					return (result < 640) ? result : 640 ;
 				};
@@ -61,7 +61,7 @@
 						mapSize = {"width": boost(1.5, elSize.width), "height": boost(1.5, elSize.height)};
 
 						console.log("getting new map", mapSize.width, mapSize.height);
-						mapURL = getMapURL(this.addressEncoded, mapSize, 10, 2);
+						mapURL = getMapURL(this.addressEncoded, mapSize, this.$element.data("zoom"), this.$element.data("scale"));
 
 						this.mapWidth  = mapSize.width;
 						this.mapHeight = mapSize.height;

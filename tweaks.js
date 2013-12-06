@@ -1,59 +1,14 @@
 (function () {
-	var drawMap = function (){
-		$(".static-gmap").each(function () {
-			var $this = $(this);
-			var $address = $this.find("address");
-			var addressEncoded = encodeURI($address.text());
-			var mapImgUrl, scale, deltaWidth;
-
-			$address.hide();
-			$this.attr("href", "http://maps.google.com/maps?q=" + addressEncoded);
-
-			$this.css({
-				"display"            : "block",
-				"width"              : "100%",
-				"color"              : "black",
-				"text-shadow"        : "0 0 2px white",
-				"background-repeat"  : "no-repeat",
-				"background-position": "50% 50%"
-			});
-
-			if (!$this.data("map-width")) {
-				$this.data("map-width", 0);
-			}
-
-			$this.height($this.width());
-			// $("#contact-info .well").outerHeight($this.outerWidth());
-
-			deltaWidth = $this.width() - $this.data("map-width");
-
-			if (deltaWidth > ($this.data("map-width") / 4)) {
-				console.log("getting new map", $this.data("map-width"), $this.width());
-				$this.data("map-width", $this.width());
-
-				mapImgUrl = "http://maps.google.com/maps/api/staticmap?" +
-					"sensor=false&" + "scale=2&" +
-					"size=" + $this.width() + "x" + $this.height() + "&" +
-					"zoom=" + $this.data("zoom") + "&" +
-					"markers=" + addressEncoded + "&" + "center=" + addressEncoded;
-
-				$this.css({"background-image"   : "url('" + mapImgUrl + "')"});
-			}
-
- 			scale = (deltaWidth <= 0) ? (Math.round(100 * $this.data("map-width") / $this.width())) : 100;
- 			scale += "%";
-
-			// $this.css({"background-size": scale + " " + scale});
-			$this.css({"background-size": scale});
-			$this.css({"height": $("#contact-info .well").outerHeight() + "px"});
- 		});
+	var linkHeights = function () {
+		$("#contact-info .static-gmap").css({"height": $("#contact-info .well").outerHeight()});
 	};
-
 
 	$(document).ready(function () {
 		var getChevronHtml = function (direction) {
 			return "<i class='glyphicon glyphicon-chevron-" + direction + "'></i>";
 		};
+
+		linkHeights();
 
 		(function mobileMenuRetract() {
 			var $menu   = $("#navbar-collapse");
@@ -65,8 +20,6 @@
 				}
 			});
 		}());
-
-		drawMap();
 
 		// (function appendToggle() {
 		// 	$("#services .details").each(function (){
@@ -91,10 +44,9 @@
 		}());
 	});
 
-	$(window).resize(function () {
-		drawMap();
+	$(window).resize(function (){
+		linkHeights();
 	});
-
 }());
 
 
