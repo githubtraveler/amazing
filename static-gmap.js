@@ -61,9 +61,7 @@
 				if (this.mapWidth < 640 && this.mapHeight < 640) {
 					if (scale.width < 100 || scale.height < 100) {
 						mapSize = {"width": boost(1.5, elSize.width), "height": boost(1.5, elSize.height)};
-
-						console.log("getting new map", mapSize.width, mapSize.height);
-						mapURL = getMapURL(this.addressEncoded, mapSize, this.$element.data("zoom"), this.$element.data("scale"));
+						mapURL  = getMapURL(this.addressEncoded, mapSize, this.$element.data("zoom"), this.$element.data("scale"));
 
 						this.mapWidth  = mapSize.width;
 						this.mapHeight = mapSize.height;
@@ -73,7 +71,6 @@
 				}
 
 				scale = getScalePercentage({"width":this.mapWidth, "height":this.mapHeight}, elSize);
-				console.log("scaling to", scale.width, scale.height);
 
 				if (scale.width < 100) {
 					scale.height = Math.round(100 * scale.height / scale.width);
