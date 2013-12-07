@@ -21,7 +21,7 @@
 	};
 
 	var fluidVideoEmbed = function () {
-		Fluidvids.init({selector: "iframe", players: ["www.youtube.com", "player.vimeo.com"]});
+		Fluidvids.init({selector: "#portfolio iframe", players: ["www.youtube.com"]});
 	};
 
 	$(document).ready(function () {
