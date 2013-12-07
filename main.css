@@ -4,7 +4,11 @@
 	border: none;
 }
 
-#header .navbar-default .navbar-nav > .active > a { background-image: none; }
+#header .navbar-nav > .active > a {
+	background-image: none;
+}
+
+#header .container { padding: 0;}
 
 #motto {
 	text-shadow: 0 2px 2px #333;
