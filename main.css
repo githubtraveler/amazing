@@ -61,12 +61,31 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 .container h4 { font-size: 200%; }
 
 #portfolio {
-	background: linear-gradient(to bottom, hsla(0,0%,100%,1) 0%, hsla(0,0%,95%,1) 65%, hsla(0,0%,85%,1) 65%, hsla(0,0%,100%,1) 100%);
+	background: linear-gradient(to bottom, hsla(0,0%,100%,1) 0%, hsla(0,0%,95%,1) 60%, hsla(0,0%,85%,1) 60%,  hsla(0,0%,100%,1) 80%, hsla(0,0%,100%,1) 100%);
 }
 
 #portfolio-carousel .carousel-control.right,
 #portfolio-carousel .carousel-control.left {
 	background: none;
+}
+
+#portfolio-carousel .carousel-indicators li {
+	background: white;
+	border: 1px solid silver;
+}
+#portfolio-carousel .carousel-indicators li.active {
+background: silver;
+border: none;
+}
+
+#portfolio-carousel .glyphicon-chevron-left,
+#portfolio-carousel .glyphicon-chevron-right {
+	background: hsl(0, 0%, 100%);
+	padding: 1em;
+	border: 2px solid silver;
+	border-radius: 50%;
+	opacity: 0.7;
+	width: auto;
 }
 
 #portfolio-carousel .carousel-control { color: black; }
