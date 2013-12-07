@@ -1,13 +1,17 @@
 {
-	"name": "rd-arts.com",
-	"scripts": {
-		"start": "node server.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/mgerzon/amazing.git"
-	},
-	"dependencies": {
-		"connect": "*"
-	}
+  "name": "rd-arts.com",
+  "description": "Company website",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mgerzon/amazing.git"
+  },
+  "dependencies": {
+    "connect": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2"
+  }
 }
