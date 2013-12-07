@@ -18,6 +18,10 @@
 		});
 	};
 
+	var fluidVideoEmbed = function () {
+		Fluidvids.init({selector: 'iframe', players: ['www.youtube.com', 'player.vimeo.com']});
+	};
+
 	$(document).ready(function () {
 		// var getChevronHtml = function (direction) {
 		// 	return "<i class='glyphicon glyphicon-chevron-" + direction + "'></i>";
@@ -48,6 +52,7 @@
 		mobileMenuRetract();
 		linkHeights();
 		imagesMustFit();
+		fluidVideoEmbed();
 	});
 
 	$(window).resize(function (){
