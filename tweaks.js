@@ -1,4 +1,6 @@
-(function () {
+(function ($, Fluidvids) {
+	"use strict";
+
 	var linkHeights = function () {
 		$("#contact-info .static-gmap").css({"height": $("#contact-info .well").outerHeight()});
 	};
@@ -19,7 +21,7 @@
 	};
 
 	var fluidVideoEmbed = function () {
-		Fluidvids.init({selector: 'iframe', players: ['www.youtube.com', 'player.vimeo.com']});
+		Fluidvids.init({selector: "iframe", players: ["www.youtube.com", "player.vimeo.com"]});
 	};
 
 	$(document).ready(function () {
@@ -59,7 +61,7 @@
 		linkHeights();
 		imagesMustFit();
 	});
-}());
+}(jQuery, Fluidvids));
 
 
 

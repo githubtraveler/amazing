@@ -1,4 +1,6 @@
 (function ($) {
+	"use strict";
+
 	var GMap = function () {
 		var GMap = function (element) {
 			var $el = $(element);
@@ -33,7 +35,7 @@
 		var getScalePercentage = function (mapSize, containerSize) {
 			var dimScale = function (a, b) {
 				return Math.round(100 * a / b);
-			}
+			};
 
 			return {
 				"width" : dimScale(mapSize.width, containerSize.width),
