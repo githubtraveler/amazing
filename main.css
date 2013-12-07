@@ -4,6 +4,8 @@
 	border: none;
 }
 
+#header .navbar-default .navbar-nav > .active > a { background-image: none; }
+
 #motto {
 	text-shadow: 0 2px 2px #333;
 	font-size: 200%;
@@ -73,9 +75,10 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 	background: white;
 	border: 1px solid silver;
 }
+
 #portfolio-carousel .carousel-indicators li.active {
-background: silver;
-border: none;
+	background: silver;
+	border: none;
 }
 
 #portfolio-carousel .glyphicon-chevron-left,
@@ -90,8 +93,8 @@ border: none;
 
 #portfolio-carousel .carousel-control { color: black; }
 
-#portfolio-carousel .item {padding: 40px 15% 60px 15%;}
-#portfolio-carousel .item img { margin: 0 auto; }
+#portfolio-carousel .item {padding: 40px 0 60px 0;}
+#portfolio-carousel .item img { margin: 0 auto; cursor: pointer;}
 #contact-info {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: normal; background: hsl(0, 0%, 20%) url(img/stripes.png);
