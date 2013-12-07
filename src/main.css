@@ -56,14 +56,6 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 	text-align: center;
 }
 
-/*.container > h2:after {
-	content   : "";
-	display   : block;
-	height    : 0.1em;
-	margin    : 0.5em -2em;
-	background: linear-gradient(to right, hsla(212,67%,36%,0) 0%,hsla(206,99%,40%,1) 50%,hsla(206,70%,70%,0) 100%);
-}*/
-
 .container h4 { font-size: 200%; }
 
 #portfolio {
