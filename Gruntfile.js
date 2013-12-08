@@ -1,3 +1,4 @@
+/* jshint node:true */
 module.exports = function(grunt) {
 	"use strict";
 
@@ -41,8 +42,7 @@ module.exports = function(grunt) {
 						Fluidvids: true
 					},
 					browser: true,
-					jquery : true,
-					node   : true
+					jquery : true
 				},
 				files: [
 					{src: "Gruntfile.js"},
@@ -95,6 +95,12 @@ module.exports = function(grunt) {
 					dest: "dist/img"
 				}]
 			}
+		},
+		watch: {
+			dist: {
+				files: ["src/**/*.js"],
+				tasks: ["jshint"]
+			}
 		}
 	});
 
@@ -105,6 +111,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-imagemin");
 	grunt.loadNpmTasks("grunt-contrib-connect");
+	grunt.loadNpmTasks("grunt-contrib-watch");
 
-	grunt.registerTask("default", ["htmlmin", "cssmin", "imagemin", "uglify"]);
+	grunt.registerTask("default", ["htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
 };
