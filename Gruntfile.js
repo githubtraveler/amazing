@@ -104,14 +104,10 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks("grunt-contrib-clean");
-	grunt.loadNpmTasks("grunt-contrib-jshint");
-	grunt.loadNpmTasks("grunt-contrib-htmlmin");
-	grunt.loadNpmTasks("grunt-contrib-cssmin");
-	grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks("grunt-contrib-imagemin");
-	grunt.loadNpmTasks("grunt-contrib-connect");
-	grunt.loadNpmTasks("grunt-contrib-watch");
+	["clean", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
+		.forEach(function (task) {
+			grunt.loadNpmTasks("grunt-contrib-" + task);
+		});
 
 	grunt.registerTask("default", ["htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
 };
