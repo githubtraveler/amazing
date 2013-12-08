@@ -36,7 +36,3 @@
 		imagesMustFit();
 	});
 }(jQuery, Fluidvids));
-
-
-
-
