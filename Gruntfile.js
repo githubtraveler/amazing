@@ -11,14 +11,16 @@ module.exports = function(grunt) {
 			dev: {
 				options: {
 					port     : 8080,
-					keepalive: true,
+					// keepalive: true,
+					hostname : "*",
 					base     : "src"
 				}
 			},
 			prod: {
 				options: {
 					port     : 9090,
-					keepalive: true,
+					// keepalive: true,
+					hostname : "*",
 					base     : "dist"
 				}
 			}
@@ -97,9 +99,15 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			dist: {
+			js: {
 				files: ["src/**/*.js"],
-				tasks: ["jshint"]
+				tasks: ["jshint"],
+			},
+			livereload : {
+				options: {
+					livereload: true
+				},
+				files: ["src/**/*.{html,css,js,png,jpg}"]
 			}
 		}
 	});
@@ -110,4 +118,5 @@ module.exports = function(grunt) {
 		});
 
 	grunt.registerTask("default", ["htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
+	grunt.registerTask("livereload", ["connect:dev", "watch:livereload"]);
 };
