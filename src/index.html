@@ -26,7 +26,7 @@
 					<ul class="nav navbar-nav">
 						<li><a href="#services"><i class="glyphicon glyphicon-info-sign"></i>Services</a></li>
 						<li><a href="#technology"><i class="glyphicon glyphicon-cog"></i>Technology</a></li>
-						<!-- <li><a href="#portfolio"><i class="glyphicon glyphicon-briefcase"></i>Portfolio</a></li> -->
+						<li><a href="#portfolio"><i class="glyphicon glyphicon-briefcase"></i>Portfolio</a></li>
 						<li><a href="#contact-info"><i class="glyphicon glyphicon-envelope"></i>Contact Us</a></li>
 					</ul>
 				</div>
@@ -170,51 +170,62 @@
 			</div>
 		</div>
 	</section>
-<!--
+
 	<section id="portfolio">
 		<div class="container">
-			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			<div id="portfolio-carousel" class="carousel slide" data-ride="carousel" data-interval="0">
 			  <ol class="carousel-indicators">
-			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-			    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				<li data-target="#portfolio-carousel" data-slide-to="0" class="active"></li>
+				<li data-target="#portfolio-carousel" data-slide-to="1"></li>
+				<li data-target="#portfolio-carousel" data-slide-to="2"></li>
+				<li data-target="#portfolio-carousel" data-slide-to="3"></li>
 			  </ol>
 
 			  <div class="carousel-inner">
-			    <div class="item active">
-			    	<p class="text-center" style="background: silver; padding: 20px 0; margin: 0">
-				      <img src="img/ipad.png" alt="...">
-			    	</p>
-			      <div class="carousel-caption">
-			      	iPad Template
-			      </div>
-			    </div>
+				<div class="item active">
+					<img src="img/sky-survey.png" alt="SkySurvey app" class="img-responsive" data-toggle="modal" data-target="#sky-survey-modal">
+					<div class="carousel-caption">Sky Survey</div>
 
-			    <div class="item">
-			    	<p class="text-center" style="background: silver; padding: 20px 0; margin: 0">
-				      <img src="img/android.png" alt="...">
-			      </p>
-			      <div class="carousel-caption">
-				      Android Template
-			      </div>
-			    </div>
+					<div class="modal fade" id="sky-survey-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">SkySurvey</h4>
+								</div>
+								<div class="modal-body">
+									<iframe width="560" height="315" src="//www.youtube.com/embed/cbSm909n6Fs" allowfullscreen></iframe>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="item">
+					<img src="img/second-prism.png" alt="SecondPrism app" class="img-responsive">
+					<div class="carousel-caption">Second Prism</div>
+				</div>
+
+				<div class="item">
+					<img src="img/9x9.png" alt="9x9 app" class="img-responsive">
+					<div class="carousel-caption">9x9</div>
+				</div>
+
+				<div class="item">
+					<img src="img/disco-worm.png" alt="Disco Worm app" class="img-responsive">
+					<div class="carousel-caption">Disco Worm Party</div>
+				</div>
 			  </div>
 
-			  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-			    <span class="glyphicon glyphicon-chevron-left"></span>
+			  <a class="left carousel-control" href="#portfolio-carousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span>
 			  </a>
-			  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-			    <span class="glyphicon glyphicon-chevron-right"></span>
+			  <a class="right carousel-control" href="#portfolio-carousel" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right"></span>
 			  </a>
 			</div>
 		</div>
-
-		<div class="container text-center">
-			<br><a class="btn btn-info btn-lg">See More...</a>
-		</div>
 	</section>
- -->
-
-	<!-- <div id="map" style="width:100%; height:600px;"></div> -->
 
 	<footer id="contact-info">
 		<div class="container">
@@ -239,17 +250,16 @@
 					<br>
 				</div>
 			</div>
-			<div class="text-center" style="margin-bottom: -1em; color: silver;"><small>&copy; <script>document.write("2009-" + new Date().getFullYear())</script> R&amp;D Arts Inc.</small></div>
+			<div class="text-center" style="margin-bottom: -1em; color: gray;"><small>&copy; <script>document.write("2009-" + new Date().getFullYear())</script> R&amp;D Arts Inc.</small></div>
 		</div>
 	</footer>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
-	<script src="tweaks.js"></script>
-	<script src="static-gmap.js"></script>
-<!--
-	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script src="map.js"></script>
--->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js" defer></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.2/js/bootstrap.min.js" defer></script>
+
+	<script src="js/fluidvids.js" defer></script>
+	<script src="js/tweaks.js" defer></script>
+	<script src="js/static-gmap.js" defer></script>
+
 	<script src="//platform.linkedin.com/in.js" async></script>
 </body>
