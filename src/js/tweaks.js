@@ -24,11 +24,16 @@
 		Fluidvids.init({selector: "#portfolio iframe", players: ["www.youtube.com"]});
 	};
 
+	var linkedin = function () {
+		$("#btn-linkedin").append("<script type='IN/FollowCompany' data-id='1444332' data-counter='none'></script>");
+	};
+
 	$(document).ready(function () {
 		mobileMenuRetract();
 		linkHeights();
 		imagesMustFit();
 		fluidVideoEmbed();
+		linkedin();
 	});
 
 	$(window).resize(function (){
