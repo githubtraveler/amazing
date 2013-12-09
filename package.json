@@ -1,9 +1,6 @@
 {
   "name": "rd-arts.com",
   "description": "Company website",
-  "scripts": {
-    "start": "node server.js"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/mgerzon/amazing.git"
