@@ -18,6 +18,9 @@
 	text-align: center;
 }
 
+/* hack to disable orange outline that pops on touch */
+button, div, input { outline-style: none !important; }
+
 abbr[title] { border: none;}
 
 .details { color: hsl(200, 50%, 80%); font-size: 80%;}
@@ -83,25 +86,26 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 	border-radius: 50%;
 	opacity: 0.7;
 	width: auto;
+	box-shadow: 0 1px 2px 1px hsla(0, 0%, 50%, 0.2);
 }
 
 #portfolio-carousel .carousel-control { color: black; }
 
 #portfolio-carousel .item {padding: 40px 0 60px 0;}
-#portfolio-carousel .item img { margin: 0 auto; cursor: pointer;}
+#portfolio-carousel .item .glyphicon {margin-left: 0.5em;}
+#portfolio-carousel .item img { margin: 0 auto 1em auto; cursor: pointer; }
 #contact-info {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: normal; background: hsl(0, 0%, 20%) url(img/stripes.png);
  	padding: 2em 0;
 }
 
-#portfolio-carousel .carousel-caption { color: hsl(0, 0%, 30%); font-size:large;}
+#portfolio-carousel .carousel-caption { color: hsl(0, 0%, 30%); margin-bottom: 8px;}
 
 #contact-info .static-gmap,
 #contact-info .well {
 	border: 1px solid hsl(0, 0%, 50%); border-radius: 4px;
-	max-width: 480px;
-	margin-left:auto; margin-right:auto;
+	max-width: 480px; margin-left:auto; margin-right:auto;
 	box-shadow: 0px 1px 3px 2px hsla(0, 0%, 0%, 0.2) inset
 }
 
