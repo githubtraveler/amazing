@@ -25,7 +25,9 @@
 	};
 
 	var linkedin = function () {
-		$("#btn-linkedin").append("<script type='IN/FollowCompany' data-id='1444332' data-counter='none'></script>");
+		$("#btn-linkedin").append(
+			"<script type='IN/FollowCompany' data-id='1444332' data-counter='none'></script>"
+		);
 	};
 
 	$(document).ready(function () {

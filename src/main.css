@@ -22,10 +22,11 @@
 button, div, input { outline-style: none !important; }
 
 abbr[title] { border: none;}
-
-.details { color: hsl(200, 50%, 80%); font-size: 80%;}
-
 section { padding: 30px 0 ; border-bottom: 1px solid silver;}
+
+.modal .close { padding: 1em 1em 1em 2em; margin: -1em -1em 0 0;  }
+
+
 
 #header .nav li a i { margin-right: 0.75em;}
 #header .navbar-toggle { background: hsl(0, 0%, 95%); border-color: hsl(0, 0%, 75%);}
@@ -33,6 +34,7 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 
 #services { background: hsla(195, 100%, 27%, 1) url('img/noise.png'); color: white; }
 #services h3 { text-align: center;}
+#services .details { color: hsl(200, 50%, 80%); font-size: 80%;}
 #services .icon { margin: 1em; height: 100px; width: auto;}
 
 #technology { background: hsl(0,0%,90%); }
