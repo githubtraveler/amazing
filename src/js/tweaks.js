@@ -20,8 +20,8 @@
 		});
 	};
 
-	var fluidVideoEmbed = function () {
-		Fluidvids.init({selector: "#portfolio iframe", players: ["www.youtube.com"]});
+	var fluidVideoEmbed = function (selector) {
+		Fluidvids.init({selector: selector, players: ["www.youtube.com"]});
 	};
 
 	var linkedin = function () {
@@ -32,8 +32,13 @@
 		mobileMenuRetract();
 		linkHeights();
 		imagesMustFit();
-		fluidVideoEmbed();
 		linkedin();
+	});
+
+	$("#portfolio-carousel").on("show.bs.modal", function () {
+		var id = $(this).attr("id");
+
+		fluidVideoEmbed("#" + id + " iframe");
 	});
 
 	$(window).resize(function (){
