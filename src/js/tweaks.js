@@ -1,7 +1,7 @@
 (function ($, Fluidvids) {
 	"use strict";
 
-	var linkHeights = function () {
+	var adjustMapHeight = function () {
 		$("#contact-info .static-gmap").css({"height": $("#contact-info .well").outerHeight()});
 	};
 
@@ -30,19 +30,24 @@
 
 	$(document).ready(function () {
 		mobileMenuRetract();
-		linkHeights();
+		adjustMapHeight();
 		imagesMustFit();
 		linkedin();
 	});
 
 	$("#portfolio-carousel").on("show.bs.modal", function () {
-		var id = $(this).attr("id");
+		var id, $this = $(this);
 
-		fluidVideoEmbed("#" + id + " iframe");
+		if ($this.data("resized") !== "true") {
+			id = $this.attr("id");
+
+			fluidVideoEmbed("#" + id + " iframe");
+			$this.data("resized", "true");
+		}
 	});
 
 	$(window).resize(function (){
-		linkHeights();
+		adjustMapHeight();
 		imagesMustFit();
 	});
 }(jQuery, Fluidvids));
