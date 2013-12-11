@@ -124,6 +124,6 @@ module.exports = function(grunt) {
 			grunt.loadNpmTasks("grunt-contrib-" + task);
 		});
 
-	grunt.registerTask("default", ["htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
+	grunt.registerTask("default", ["clean", "htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
 	grunt.registerTask("livereload", ["connect:live", "watch:livereload"]);
 };
