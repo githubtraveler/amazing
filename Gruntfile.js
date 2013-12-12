@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 				},
 				files: [
 					{src: "Gruntfile.js"},
-					{src: "src/js/**/*.js"}
+					{src: "src/**/*.js"}
 				]
 			}
 		},
@@ -85,10 +85,10 @@ module.exports = function(grunt) {
 			dist: {
 				files: [{
 					expand: true,
-					cwd   : "src/js",
+					cwd   : "src",
 					src   : "*.js",
 					ext   : ".js",
-					dest  : "dist/js"
+					dest  : "dist"
 				}]
 			}
 		},
