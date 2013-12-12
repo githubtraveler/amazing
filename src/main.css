@@ -58,12 +58,13 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 .container > h2 {margin-bottom: 1em; text-align: center; text-shadow: 0 1px 1px hsla(0, 0%, 20%, 0.5); }
 
 #portfolio {
-	background: linear-gradient(to bottom,
+/*	background: linear-gradient(to bottom,
 		hsla(0,0%,100%,1) 0%,
 		hsla(0,0%,95%,1) 65%,
 		hsla(0,0%,85%,1) 65%,
 		hsla(0,0%,100%,1) 90%,
-		hsla(0,0%,100%,1) 100%);
+		hsla(0,0%,100%,1) 100%);*/
+	background: white;
 }
 
 #portfolio-carousel .carousel-control.right,
@@ -100,7 +101,7 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 #contact-info {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-weight: normal; background: hsl(0, 0%, 20%) url(img/stripes.png);
- 	padding: 2em 0;
+	padding: 2em 0;
 }
 
 #portfolio-carousel .carousel-caption { color: hsl(0, 0%, 30%); margin-bottom: 8px;}
