@@ -16,7 +16,7 @@ npm install
 
 ## Use
 
-Prepare (compress and validate) files for dstribution
+Prepare (compress and validate) files for dstribution. The action below will place production version fi the site files into `dist` folder
 ```
 grunt
 ```
