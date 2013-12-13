@@ -1,6 +1,7 @@
 # R&D Arts Inc Company Website
+Website from "src" folder will work as long as there is a web server. To perform code validation and optimizasion, node.js is required.
 
-## Setup
+## Setup Development Tools
 
 Install [node.js](http://nodejs.org/). 
 
@@ -14,7 +15,7 @@ Go to project folder
 npm install
 ```
 
-## Use
+## Use Development Tools
 
 Prepare (compress and validate) files for dstribution. The action below will place production version fi the site files into `dist` folder
 ```
