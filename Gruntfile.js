@@ -32,6 +32,41 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		validation: {
+			dist: {
+				options: {
+					reset: true,
+					path: "log/validation-status.json",
+					reportpath: "log/validation-report.json",
+					stoponerror: true
+				},
+				files: {
+					src: ["src/index.html"]
+				}
+			}
+		},
+		htmlmin: {
+			dist: {
+				options: {
+					collapseWhitespace       : true,
+					collapseBooleanAttributes: true,
+					removeEmptyAttributes    : true,
+					removeRedundantAttributes: true
+				},
+				files: [{
+					src : "src/index.html",
+					dest: "dist/index.html"
+				}]
+			}
+		},
+		cssmin: {
+			dist: {
+				files: [{
+					src : "src/main.css",
+					dest: "dist/main.css"
+				}]
+			}
+		},
 		jshint: {
 			dist: {
 				options: {
@@ -57,28 +92,6 @@ module.exports = function(grunt) {
 					{src: "Gruntfile.js"},
 					{src: "src/**/*.js"}
 				]
-			}
-		},
-		htmlmin: {
-			dist: {
-				options: {
-					collapseWhitespace       : true,
-					collapseBooleanAttributes: true,
-					removeEmptyAttributes    : true,
-					removeRedundantAttributes: true
-				},
-				files: [{
-					src : "src/index.html",
-					dest: "dist/index.html"
-				}]
-			}
-		},
-		cssmin: {
-			dist: {
-				files: [{
-					src : "src/main.css",
-					dest: "dist/main.css"
-				}]
 			}
 		},
 		uglify: {
@@ -122,8 +135,11 @@ module.exports = function(grunt) {
 	["clean", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
 		.forEach(function (task) {
 			grunt.loadNpmTasks("grunt-contrib-" + task);
-		});
+		})
+	;
 
-	grunt.registerTask("default", ["clean", "htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
+	grunt.loadNpmTasks("grunt-html-validation");
+
+	grunt.registerTask("default", ["clean", "validation", "htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
 	grunt.registerTask("livereload", ["connect:live", "watch:livereload"]);
 };
