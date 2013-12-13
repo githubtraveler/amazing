@@ -13,9 +13,9 @@
 
 #motto {
 	text-shadow: 0 2px 2px #333;
-	font-size: 200%;
+	font-size: 500%;
 	color: white;
-	margin-top: 50px;
+	/*margin-top: 50px;*/
 	text-align: center;
 }
 
@@ -33,7 +33,7 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 #header .navbar-toggle { background: hsl(0, 0%, 95%); border-color: hsl(0, 0%, 75%);}
 
 
-#services { background: hsla(195, 100%, 27%, 1) url('img/noise.png'); color: white; }
+#services { background: hsla(195, 100%, 27%, 1) url('img/noise.png'); color: white; margin-top: 50px;}
 #services h3 { text-align: center;}
 #services .details { color: hsl(200, 50%, 80%); font-size: 80%;}
 #services .icon { margin: 1em; height: 100px; width: auto;}
@@ -116,21 +116,21 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 
 /* Large desktop */
 @media (min-width: 1200px) {
-
+	#motto { font-size: 600%; }
 }
 
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) {
-	#motto { font-size: 500%; }
+@media (max-width: 980px) {
+	#motto { font-size: 400%; }
 }
 
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 	#motto { font-size: 300%; }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) {
-
+	#motto { font-size: 200%; }
 }
 
