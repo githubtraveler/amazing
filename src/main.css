@@ -126,7 +126,6 @@ section { padding: 30px 0 ; border-bottom: 1px solid silver;}
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
 	#motto { font-size: 300%; }
-	#portfolio { background: white;}
 }
 
 /* Landscape phones and down */
