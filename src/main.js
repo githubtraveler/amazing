@@ -30,6 +30,17 @@
 		);
 	};
 
+	var applyFluidVidsOnce = function (element) {
+		var id, $el = $(element);
+
+		if ($el.data("resized") !== "true") {
+			id = $el.attr("id");
+
+			fluidVideoEmbed("#" + id + " iframe");
+			$el.data("resized", "true");
+		}
+	};
+
 	$(document).ready(function () {
 		mobileMenuRetract();
 		adjustMapHeight();
@@ -37,15 +48,10 @@
 		linkedin();
 	});
 
+
+	// FluidVids is unstable with modal windows when used on document-ready
 	$("#portfolio-carousel").on("show.bs.modal", function () {
-		var id, $this = $(this);
-
-		if ($this.data("resized") !== "true") {
-			id = $this.attr("id");
-
-			fluidVideoEmbed("#" + id + " iframe");
-			$this.data("resized", "true");
-		}
+		applyFluidVidsOnce(this);
 	});
 
 	$(window).resize(function (){
