@@ -90,19 +90,18 @@ module.exports = function(grunt) {
 				},
 				files: [
 					{src: "Gruntfile.js"},
-					{src: "src/**/*.js"}
+					{src: "src/lib/static-gmap.js"},
+					{src: "src/main.js"}
 				]
 			}
 		},
 		uglify: {
 			dist: {
-				files: [{
-					expand: true,
-					cwd   : "src",
-					src   : "**/*.js",
-					ext   : ".js",
-					dest  : "dist"
-				}]
+				files: [
+					{src: "src/lib/static-gmap.js", dest: "dist/lib/static-gmap.js"},
+					{src: "src/lib/fluidvids.js", dest: "dist/lib/fluidvids.js"},
+					{src: "src/main.js", dest: "dist/main.js"}
+				]
 			}
 		},
 		imagemin: {
