@@ -143,15 +143,15 @@ module.exports = function(grunt) {
 		}
 	});
 
-	["clean", "compress", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
+	(["clean", "compress", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
 		.forEach(function (task) {
 			grunt.loadNpmTasks("grunt-contrib-" + task);
 		})
-	;
+	);
 
 	grunt.loadNpmTasks("grunt-html-validation");
 
-	grunt.registerTask("default", ["clean", "validation", "htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
+	grunt.registerTask("default", ["validation", "jshint"]);
 	grunt.registerTask("livereload", ["connect:live", "watch:livereload"]);
-	grunt.registerTask("build", ["default", "compress"]);
+	grunt.registerTask("build", ["default", "clean", "uglify", "cssmin", "htmlmin", "imagemin", "compress"]);
 };
