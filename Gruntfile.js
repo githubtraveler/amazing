@@ -153,5 +153,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("default", ["validation", "jshint"]);
 	grunt.registerTask("livereload", ["connect:live", "watch:livereload"]);
-	grunt.registerTask("build", ["default", "clean", "uglify", "cssmin", "htmlmin", "imagemin", "compress"]);
+	grunt.registerTask("build", ["default", "clean", "uglify", "cssmin", "htmlmin", "imagemin"]);
+	grunt.registerTask("archive", ["build", "compress"]);
 };

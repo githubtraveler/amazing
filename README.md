@@ -17,14 +17,20 @@ npm install
 
 ## Use Development Tools
 
-Prepare (compress and validate) files for dstribution. The action below will place production version fi the site files into `dist` folder
+Just run validation
+
 ```
 grunt
 ```
 
-Make production build
+Prepare (compress and validate) files for dstribution. The action below will place production version fi the site files into `dist` folder
 ```
 grunt build
+```
+
+Make archived production build
+```
+grunt archive
 ```
 
 Clean generated files
