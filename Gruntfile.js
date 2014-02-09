@@ -7,6 +7,18 @@ module.exports = function(grunt) {
 		clean: {
 			dist: ["dist/*"]
 		},
+		compress : {
+			zip: {
+				options : {
+					archive: ("builds/rd-arts"+ "-" + grunt.template.date((new Date()), "yyyymmdd") + ".zip")
+				},
+				files: [{
+					expand: true,
+					cwd: "dist/",
+					src: ["**/*"]
+				}]
+			}
+		},
 		connect:{
 			dev: {
 				options: {
@@ -131,7 +143,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	["clean", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
+	["clean", "compress", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
 		.forEach(function (task) {
 			grunt.loadNpmTasks("grunt-contrib-" + task);
 		})
@@ -141,4 +153,5 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("default", ["clean", "validation", "htmlmin", "cssmin", "imagemin", "jshint", "uglify"]);
 	grunt.registerTask("livereload", ["connect:live", "watch:livereload"]);
+	grunt.registerTask("build", ["default", "compress"]);
 };
