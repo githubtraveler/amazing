@@ -1,4 +1,5 @@
 /* jshint node:true */
+
 module.exports = function(grunt) {
 	"use strict";
 
@@ -23,14 +24,6 @@ module.exports = function(grunt) {
 			dev: {
 				options: {
 					port     : 8080,
-					keepalive: true,
-					hostname : "*",
-					base     : "src"
-				}
-			},
-			live: {
-				options: {
-					port     : 8080,
 					hostname : "*",
 					base     : "src"
 				}
@@ -38,7 +31,6 @@ module.exports = function(grunt) {
 			prod: {
 				options: {
 					port     : 9090,
-					keepalive: true,
 					hostname : "*",
 					base     : "dist"
 				}
@@ -81,25 +73,7 @@ module.exports = function(grunt) {
 		},
 		jshint: {
 			dist: {
-				options: {
-					bitwise  : true,
-					camelcase: true,
-					curly    : true,
-					eqeqeq   : true,
-					immed    : true,
-					latedef  : true,
-					newcap   : true,
-					noarg    : true,
-					quotmark : true,
-					strict   : true,
-					undef    : true,
-					unused   : true,
-					globals: {
-						Fluidvids: true
-					},
-					browser: true,
-					jquery : true
-				},
+				options: {jshintrc: ".jshintrc"},
 				files: [
 					{src: "Gruntfile.js"},
 					{src: "src/lib/static-gmap.js"},
@@ -134,7 +108,7 @@ module.exports = function(grunt) {
 				files: ["src/**/*.js"],
 				tasks: ["jshint"],
 			},
-			livereload : {
+			all: {
 				options: {
 					livereload: true
 				},
@@ -152,7 +126,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-html-validation");
 
 	grunt.registerTask("default", ["validation", "jshint"]);
-	grunt.registerTask("livereload", ["connect:live", "watch:livereload"]);
+	grunt.registerTask("livereload", ["connect:dev", "watch:all"]);
 	grunt.registerTask("build", ["default", "clean", "uglify", "cssmin", "htmlmin", "imagemin"]);
 	grunt.registerTask("archive", ["build", "compress"]);
 };

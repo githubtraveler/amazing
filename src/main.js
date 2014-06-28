@@ -1,3 +1,5 @@
+/* global Fluidvids */
+
 (function ($, Fluidvids) {
 	"use strict";
 
