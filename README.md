@@ -40,7 +40,7 @@ grunt clean
 
 Start development server
 ```
-grunt conect:dev:keepalive
+grunt conect:dev
 ```
 
 Start development server with livereload
@@ -48,9 +48,6 @@ Start development server with livereload
 grunt livereload
 ```
 
-Start production server
-```
-grunt conect:prod:keepalive
-```
+
 
 
