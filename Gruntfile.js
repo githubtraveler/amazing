@@ -8,6 +8,23 @@ module.exports = function(grunt) {
 		clean: {
 			dist: ["dist/*"]
 		},
+		copy: {
+			dist: {
+
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: [
+							"src/robots.txt",
+							"src/sitemap.xml",
+							"src/favicon.ico"
+						],
+						dest: "dist/"
+					}
+				]
+			}
+		},
 		compress : {
 			zip: {
 				options : {
@@ -117,7 +134,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	(["clean", "compress", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch"]
+	(["clean", "compress", "connect", "cssmin", "jshint", "htmlmin", "imagemin", "uglify", "watch", "copy"]
 		.forEach(function (task) {
 			grunt.loadNpmTasks("grunt-contrib-" + task);
 		})
@@ -127,6 +144,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask("default", ["validation", "jshint"]);
 	grunt.registerTask("livereload", ["connect:dev", "watch:all"]);
-	grunt.registerTask("build", ["default", "clean", "uglify", "cssmin", "htmlmin", "imagemin"]);
+	grunt.registerTask("build", ["default", "clean", "uglify", "cssmin", "htmlmin", "imagemin", "copy"]);
 	grunt.registerTask("archive", ["build", "compress"]);
 };
