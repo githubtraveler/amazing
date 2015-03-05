@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<title>register user</title>
+
+<form id="form">
+	<table  style="border: 1px solid silver">
+		<tr>
+			<td><label for="email">email</label></td>
+			<td><input id="email" type="email" required></td>
+		</tr>
+		<tr>
+			<td>password</td>
+			<td> <input id="password" type="password" required></td>
+		</tr>
+		<tr>
+			<td>confirm password</td>
+			<td> <input id="confirmPassword" type="password" required></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: right">
+				<button id="register">Register</button>
+			</td>
+		</tr>
+	</table>
+</form>
+<div id="result"></div>
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" ></script>
+
+<script>
+	$(document).ready(function () {
+		"use strict";
+
+		var apiUrl = "http://localhost:3000/register";
+
+		$("#form").on("submit", function (event) {
+			event.preventDefault();
+
+			$.post(apiUrl, {
+				"email"   : $("#email").val(),
+				"password": $("#password").val()
+			}, function (res) {
+				$("#form").hide();
+				$("#result").html(res);
+			});
+		});
+	});
+
+</script>
+
