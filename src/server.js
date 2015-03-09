@@ -43,9 +43,10 @@ app.post("/register", function(req, res) {
 	mongodb.connect(dbUrl, function (err, db) {
 		var users = db.collection("users");
 
-		console.log(md5(req.body.password));
-
-		users.insert(req.body, function (err, result) {
+		users.insert({
+			"email"   : req.body.email,
+			"password": md5(req.body.password)
+		}, function (err, result) {
 			res.send("Registered " + req.body.email);
 		});
 

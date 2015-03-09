@@ -2,30 +2,30 @@
 
 <title>register user</title>
 
-<form id="form">
+<form id="register">
 	<table  style="border: 1px solid silver">
 		<tr>
 			<td><label for="email">email</label></td>
-			<td><input id="email" type="email" required></td>
+			<td><input id="email" type="email" required autofocus></td>
 		</tr>
 		<tr>
-			<td>password</td>
-			<td> <input id="password" type="password" required></td>
+			<td><label for="password">password</label></td>
+			<td><input id="password" type="password" required></td>
 		</tr>
 		<tr>
-			<td>confirm password</td>
-			<td> <input id="confirmPassword" type="password" required></td>
+			<td><label for="confirm-password">confirm password</label></td>
+			<td><input id="confirm-password" type="password" required></td>
 		</tr>
 		<tr>
 			<td colspan="2" style="text-align: right">
-				<button id="register">Register</button>
+				<input type="submit" value="register">
 			</td>
 		</tr>
 	</table>
 </form>
 <div id="result"></div>
 
-<script src="https://code.jquery.com/jquery-2.1.1.min.js" ></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <script>
 	$(document).ready(function () {
@@ -33,14 +33,24 @@
 
 		var apiUrl = "http://localhost:3000/register";
 
-		$("#form").on("submit", function (event) {
+		var $registerForm    = $("#register");
+		var $password        = $("#password");
+		var $confirmPassword = $("#confirm-password");
+
+		$password.add($confirmPassword).on("input", function () {
+			var passwordsMatch = ($password.val() === $confirmPassword.val());
+
+			this.setCustomValidity(passwordsMatch ? "" : "Passwords must match");
+		});
+
+		$registerForm.on("submit", function (event) {
 			event.preventDefault();
 
 			$.post(apiUrl, {
 				"email"   : $("#email").val(),
-				"password": $("#password").val()
+				"password": $password.val()
 			}, function (res) {
-				$("#form").hide();
+				$registerForm.hide();
 				$("#result").html(res);
 			});
 		});
