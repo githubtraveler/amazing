@@ -2,15 +2,39 @@
 
 <title>register user</title>
 
-<form id="register">
-	<table  style="border: 1px solid silver">
+<style>
+	table { border: 1px solid silver; }
+</style>
+
+<form id="login">
+	<table>
 		<tr>
-			<td><label for="email">email</label></td>
-			<td><input id="email" type="email" required autofocus></td>
+			<td><label for="login-email">email</label></td>
+			<td><input id="login-email" type="email" required autofocus></td>
 		</tr>
 		<tr>
-			<td><label for="password">password</label></td>
-			<td><input id="password" type="password" required></td>
+			<td><label for="login-password">password</label></td>
+			<td><input id="login-password" type="password" required></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: right">
+				<input type="submit" value="login">
+			</td>
+		</tr>
+	</table>
+</form>
+
+<br><br><br><br>
+
+<form id="register">
+	<table>
+		<tr>
+			<td><label for="register-email">email</label></td>
+			<td><input id="register-email" type="email" required autofocus></td>
+		</tr>
+		<tr>
+			<td><label for="register-password">password</label></td>
+			<td><input id="register-password" type="password" required></td>
 		</tr>
 		<tr>
 			<td><label for="confirm-password">confirm password</label></td>
@@ -23,6 +47,9 @@
 		</tr>
 	</table>
 </form>
+
+<br><br><br>
+
 <div id="result"></div>
 
 <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
@@ -31,29 +58,55 @@
 	$(document).ready(function () {
 		"use strict";
 
-		var apiUrl = "http://localhost:3000/register";
+		var apiUrl  = "http://localhost:3000";
+		var $result = $("#result");
 
-		var $registerForm    = $("#register");
-		var $password        = $("#password");
-		var $confirmPassword = $("#confirm-password");
+		(function () {
+			var $registerForm    = $("#register");
+			var $password        = $("#register-password");
+			var $confirmPassword = $("#confirm-password");
 
-		$password.add($confirmPassword).on("input", function () {
-			var passwordsMatch = ($password.val() === $confirmPassword.val());
+			$password.add($confirmPassword).on("input", function () {
+				var passwordsMatch  = ($password.val() === $confirmPassword.val());
+				var validityMessage = (passwordsMatch ? "" : "Passwords must match");
 
-			this.setCustomValidity(passwordsMatch ? "" : "Passwords must match");
-		});
-
-		$registerForm.on("submit", function (event) {
-			event.preventDefault();
-
-			$.post(apiUrl, {
-				"email"   : $("#email").val(),
-				"password": $password.val()
-			}, function (res) {
-				$registerForm.hide();
-				$("#result").html(res);
+				$confirmPassword[0].setCustomValidity(validityMessage);
 			});
-		});
+
+			$registerForm.on("submit", function (event) {
+				event.preventDefault();
+
+				$.post((apiUrl + "/register"), {
+					"email"   : $("#register-email").val(),
+					"password": $password.val()
+				}, function (res) {
+					$registerForm.hide();
+					$result.html(res);
+				});
+			});
+		}());
+
+
+		(function () {
+			var $loginForm = $("#login");
+			var $email     = $("#login-email");
+			var $password  = $("#login-password");
+
+			$loginForm.on("submit", function (event) {
+				event.preventDefault();
+
+				$.post((apiUrl + "/login"), {
+					"email"   : $email.val(),
+					"password": $password.val()
+				}, function (res) {
+					$result.html(res);
+				}).fail(function (event) {
+					$result.html(event.responseText);
+
+				});
+			});
+
+		}());
 	});
 
 </script>

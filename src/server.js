@@ -15,6 +15,8 @@ var md5 = function (s) {
 	return crypto.createHash('md5').update(s).digest('hex');
 };
 
+var sessions = {};
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
@@ -43,22 +45,46 @@ app.post("/register", function(req, res) {
 	mongodb.connect(dbUrl, function (err, db) {
 		var users = db.collection("users");
 
-		users.insert({
-			"email"   : req.body.email,
-			"password": md5(req.body.password)
-		}, function (err, result) {
-			res.send("Registered " + req.body.email);
+		users.findOne({ "email": req.body.email }, function (err, result) {
+			if (!result) {
+				users.insert({
+					"email"   : req.body.email,
+					"password": md5(req.body.password)
+				}, function (err, result) {
+					res.status(200).send("Registered " + req.body.email);
+					db.close();
+				});
+			} else {
+				res.send("Already exists " + req.body.email);
+				db.close();
+			}
 		});
 
-
-		db.close();
 	});
 
 });
 
+app.post("/login", function (req, res) {
+	mongodb.connect(dbUrl, function (err, db) {
+		var users = db.collection("users");
+
+		users.findOne({ "email": req.body.email }, function (err, result) {
+			var sessionKey;
+
+			if (!result) {
+				res.status(400).send("Account not found");
+			} else if (md5(req.body.password) === result.password) {
+				sessionKey = md5(Math.random().toString());
+				sessions[req.body.email] = sessionKey;
+				res.status(200).send("Access granted. Session id is " + sessionKey);
+			} else {
+				res.status(400).send("Access denied. Wrong password.");
+			}
+
+
+			db.close();
+		});
+	});
+});
+
 app.listen(3000);
-
-
-
-
-
