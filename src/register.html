@@ -63,6 +63,7 @@
 
 		(function () {
 			var $registerForm    = $("#register");
+			var $email           = $("#register-email");
 			var $password        = $("#register-password");
 			var $confirmPassword = $("#confirm-password");
 
@@ -77,7 +78,7 @@
 				event.preventDefault();
 
 				$.post((apiUrl + "/register"), {
-					"email"   : $("#register-email").val(),
+					"email"   : $email.val(),
 					"password": $password.val()
 				}, function (res) {
 					$registerForm.hide();

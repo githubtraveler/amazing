@@ -7,6 +7,9 @@ var app        = express();
 var bodyParser = require("body-parser");
 var multer     = require('multer');
 
+var nodemailer  = require('nodemailer');
+var transporter = nodemailer.createTransport();
+
 var crypto = require('crypto');
 
 var dbUrl = "mongodb://localhost/test";
@@ -16,6 +19,19 @@ var md5 = function (s) {
 };
 
 var sessions = {};
+
+// transporter.sendMail({
+// 	from   : 'oleg.gunkin@gmail.com',
+// 	to     : 'oleg.gunkin@gmail.com',
+// 	subject: 'hello',
+// 	text   : 'hello world!'
+// }, function(error, info){
+//     if(error){
+//         console.log(error);
+//     }else{
+//         console.log('Message sent: ' + info.response);
+//     }
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
