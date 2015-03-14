@@ -15,7 +15,7 @@ var crypto = require('crypto');
 var dbUrl = "mongodb://localhost/test";
 
 var md5 = function (s) {
-	return crypto.createHash('md5').update(s).digest('hex');
+	return crypto.createHash("md5").update(s).digest("hex");
 };
 
 var sessions = {};
@@ -32,6 +32,18 @@ var sessions = {};
 //         console.log('Message sent: ' + info.response);
 //     }
 // });
+
+
+var generateSessionId = function () {
+	return md5(Math.random().toString());
+};
+
+var saveAndSendNewSessionId = function (req, res) {
+	var sessionKey = generateSessionId();
+
+	sessions[req.body.email] = sessionKey;
+	res.status(200).send(sessionKey);
+};
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -67,7 +79,7 @@ app.post("/register", function(req, res) {
 					"email"   : req.body.email,
 					"password": md5(req.body.password)
 				}, function (err, result) {
-					res.status(200).send("Registered " + req.body.email);
+					saveAndSendNewSessionId(req, res);
 					db.close();
 				});
 			} else {
@@ -85,18 +97,13 @@ app.post("/login", function (req, res) {
 		var users = db.collection("users");
 
 		users.findOne({ "email": req.body.email }, function (err, result) {
-			var sessionKey;
-
 			if (!result) {
 				res.status(400).send("Account not found");
 			} else if (md5(req.body.password) === result.password) {
-				sessionKey = md5(Math.random().toString());
-				sessions[req.body.email] = sessionKey;
-				res.status(200).send("Access granted. Session id is " + sessionKey);
+				saveAndSendNewSessionId(req, res);
 			} else {
 				res.status(400).send("Access denied. Wrong password.");
 			}
-
 
 			db.close();
 		});

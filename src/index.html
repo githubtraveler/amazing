@@ -42,8 +42,12 @@
 						</li>
 						<li>
 							<div class="navbar-form navbar-left" style="text-align:center;">
-								<button class="btn btn-default" data-toggle="modal" data-target="#login-register-modal">
+								<button id="login-btn" class="btn btn-default" data-toggle="modal" data-target="#login-register-modal">
 									<i class="glyphicon glyphicon-log-in"></i>
+								</button>
+
+								<button id="logout-btn" class="btn btn-warning" style="display:none">
+									<i class="glyphicon glyphicon-log-out" ></i>
 								</button>
 							</div>
 						</li>
@@ -504,7 +508,7 @@
 							</div>
 							<div id="login" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="login-heading">
 								<div class="panel-body">
-									<form>
+									<form id="login-form">
 										<div class="form-group">
 											<label for="login-email">Email</label>
 											<input id="login-email" class="form-control" type="email" required>
@@ -528,7 +532,7 @@
 							</div>
 							<div id="register" class="panel-collapse collapse" role="tabpanel" aria-labelledby="register-heading">
 								<div class="panel-body">
-									<form>
+									<form id="register-form">
 										<div class="form-group">
 											<label for="register-email">Email</label>
 											<input id="register-email" class="form-control" type="email" required>
@@ -646,6 +650,7 @@
 	<script src="lib/fluidvids.js" defer></script>
 	<script src="main.js" defer></script>
 	<script src="lib/static-gmap.js" defer></script>
+	<script src="lib/user-ui.js" defer></script>
 
 	<script src="//platform.linkedin.com/in.js" async></script>
 </body>
