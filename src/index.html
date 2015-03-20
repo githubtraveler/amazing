@@ -517,11 +517,44 @@
 											<label for="login-password">Password</label>
 											<input id="login-password" class="form-control" type="password" required>
 										</div>
+
 										<input type="submit" class="btn btn-primary" value="Login">
+										<a id="password-reset-request" class="pull-right" href="#" style="margin-top:1em">Forgot Password?</a>
+
 									</form>
 								</div>
 							</div>
 						</div>
+
+						<div class="panel panel-default" style="display:none">
+							<div class="panel-heading" role="tab" id="reset-heading">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#login-register" href="#reset-password-block" aria-expanded="false" aria-controls="reset">
+										Reset Password
+									</a>
+								</h4>
+							</div>
+							<div id="reset-password-block" class="panel-collapse collapse" role="tabpanel" aria-labelledby="reset-heading">
+								<div class="panel-body">
+									<form id="reset-form">
+										<div class="form-group">
+											<label for="reset-code">Confirmation Code</label>
+											<input id="reset-code" class="form-control" type="password" required>
+										</div>
+										<div class="form-group">
+											<label for="reset-password">New Password</label>
+											<input id="reset-password" class="form-control" type="password" required>
+										</div>
+										<div class="form-group">
+											<label for="reset-confirm-password">Confirm New Password</label>
+											<input id="reset-confirm-password" class="form-control" type="password" required>
+										</div>
+										<input type="submit" class="btn btn-primary" value="Reset Password">
+									</form>
+								</div>
+							</div>
+						</div>
+
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab" id="register-heading">
 								<h4 class="panel-title">
@@ -534,6 +567,14 @@
 								<div class="panel-body">
 									<form id="register-form">
 										<div class="form-group">
+											<label for="register-name">Full Name</label>
+											<input id="register-name" class="form-control" type="text" required>
+										</div>
+										<div class="form-group">
+											<label for="register-organization">Organization</label>
+											<input id="register-organization" class="form-control" type="text" required>
+										</div>
+										<div class="form-group">
 											<label for="register-email">Email</label>
 											<input id="register-email" class="form-control" type="email" required>
 										</div>
@@ -542,8 +583,8 @@
 											<input id="register-password" class="form-control" type="password" required>
 										</div>
 										<div class="form-group">
-											<label for="confirm-password">Confirm Password</label>
-											<input id="confirm-password" class="form-control" type="password" required>
+											<label for="register-confirm-password">Confirm Password</label>
+											<input id="register-confirm-password" class="form-control" type="password" required>
 										</div>
 										<input type="submit" class="btn btn-primary" value="Register">
 									</form>

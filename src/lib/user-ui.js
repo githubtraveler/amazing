@@ -19,6 +19,42 @@ $(document).ready(function () {
 		$("#logout-btn").hide();
 	});
 
+
+	$("#password-reset-request").on("click", function (event) {
+		var $email      = $("#login-email");
+		var $resetBlock = $("#reset-password-block");
+
+		event.preventDefault();
+
+		$.post((apiUrl + "/reset-request"), {
+			"email": $email.val()
+		}, function (res) {
+			alert("Password reset code was sent to " + $email.val());
+
+			$resetBlock.closest(".panel").show();
+			$("#reset-heading a").trigger("click");
+		}).fail(function (event) {
+			console.log("fail");
+		});
+
+	});
+
+	$("#reset-form").on("submit", function (event) {
+		var $email    = $("#login-email");
+		var $code     = $("#reset-code");
+		var $password = $("#reset-password");
+
+		event.preventDefault();
+
+		$.post((apiUrl + "/reset-password"), {
+			"email"   : $email.val(),
+			"code"    : $code.val(),
+			"password": $password.val()
+		}, function (res) {
+			alert("password udated");
+		})
+	});
+
 	(function autoLogin () {
 		var sessionId = localStorage.getItem("session-id");
 
@@ -56,9 +92,11 @@ $(document).ready(function () {
 
 	(function registerForm () {
 		var $registerForm    = $("#register-form");
+		var $name            = $("#register-name");
+		var $organization    = $("#register-organization");
 		var $email           = $("#register-email");
 		var $password        = $("#register-password");
-		var $confirmPassword = $("#confirm-password");
+		var $confirmPassword = $("#register-confirm-password");
 
 		$password.add($confirmPassword).on("input", function () {
 			var passwordsMatch  = ($password.val() === $confirmPassword.val());
@@ -71,8 +109,10 @@ $(document).ready(function () {
 			event.preventDefault();
 
 			$.post((apiUrl + "/register"), {
-				"email"   : $email.val(),
-				"password": $password.val()
+				"name"        : $name.val(),
+				"organization": $organization.val(),
+				"email"       : $email.val(),
+				"password"    : $password.val()
 			}, function (res) {
 				login(res);
 			});
