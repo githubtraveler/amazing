@@ -21,8 +21,7 @@ $(document).ready(function () {
 
 
 	$("#password-reset-request").on("click", function (event) {
-		var $email      = $("#login-email");
-		var $resetBlock = $("#reset-password-block");
+		var $email = $("#login-email");
 
 		event.preventDefault();
 
@@ -31,7 +30,7 @@ $(document).ready(function () {
 		}, function (res) {
 			alert("Password reset code was sent to " + $email.val());
 
-			$resetBlock.closest(".panel").show();
+			$("#reset-panel").show();
 			$("#reset-heading a").trigger("click");
 		}).fail(function (event) {
 			console.log("fail");
@@ -114,8 +113,26 @@ $(document).ready(function () {
 				"email"       : $email.val(),
 				"password"    : $password.val()
 			}, function (res) {
+				// login(res);
+				alert(res);
+				$("#register-panel").hide();
+				$("#activate-panel").show();
+				$("#activate-heading a").trigger("click");
+			});
+		});
+
+		$("#activate-form").on("submit", function (event) {
+			event.preventDefault();
+
+			$.post((apiUrl + "/activate"), {
+				"email": $email.val(),
+				"code" : $("#activate-code").val()
+			} ,function (res) {
+				alert("Activated");
 				login(res);
 			});
 		});
 	}());
+
+
 });

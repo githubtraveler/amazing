@@ -526,7 +526,7 @@
 							</div>
 						</div>
 
-						<div class="panel panel-default" style="display:none">
+						<div id="reset-panel" class="panel panel-default" style="display:none">
 							<div class="panel-heading" role="tab" id="reset-heading">
 								<h4 class="panel-title">
 									<a class="collapsed" data-toggle="collapse" data-parent="#login-register" href="#reset-password-block" aria-expanded="false" aria-controls="reset">
@@ -555,7 +555,7 @@
 							</div>
 						</div>
 
-						<div class="panel panel-default">
+						<div id="register-panel" class="panel panel-default">
 							<div class="panel-heading" role="tab" id="register-heading">
 								<h4 class="panel-title">
 									<a class="collapsed" data-toggle="collapse" data-parent="#login-register" href="#register" aria-expanded="false" aria-controls="register">
@@ -587,6 +587,27 @@
 											<input id="register-confirm-password" class="form-control" type="password" required>
 										</div>
 										<input type="submit" class="btn btn-primary" value="Register">
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<div id="activate-panel" class="panel panel-default" style="display:none">
+							<div class="panel-heading" role="tab" id="activate-heading">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#login-register" href="#activate" aria-expanded="false" aria-controls="activate">
+										Activate Account
+									</a>
+								</h4>
+							</div>
+							<div id="activate" class="panel-collapse collapse" role="tabpanel" aria-labelledby="activate-heading">
+								<div class="panel-body">
+									<form id="activate-form">
+										<div class="form-group">
+											<label for="activate-code">Activation Code</label>
+											<input id="activate-code" type="password" class="form-control" required>
+										</div>
+										<input type="submit" value="Activate" class="btn btn-primary">
 									</form>
 								</div>
 							</div>

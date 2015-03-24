@@ -19,8 +19,6 @@ var transporter = nodemailer.createTransport(smtpTransport({
     }
 }));
 
-// var transporter = nodemailer.createTransport();
-
 var crypto = require('crypto');
 
 var dbUrl = "mongodb://localhost/test";
@@ -29,8 +27,9 @@ var md5 = function (s) {
 	return crypto.createHash("md5").update(s).digest("hex");
 };
 
-var sessions = {};
+var sessions   = {};
 var resetCodes = {};
+var inactive   = {};
 
 var generateSessionId = function () {
 	return md5(Math.random().toString());
@@ -45,7 +44,7 @@ var saveAndSendNewSessionId = function (req, res) {
 
 var getRandomInt = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
-}
+};
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -69,32 +68,90 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.post("/register", function(req, res) {
-	console.log(req.body);
+app.post("/activate", function (req, res) {
+	var email = req.body.email;
+	var code  = req.body.code;
 
-	mongodb.connect(dbUrl, function (err, db) {
-		var users = db.collection("users");
+	if (inactive[email] && (inactive[email].code === code)) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var users = db.collection("users");
 
-		users.findOne({ "email": req.body.email }, function (err, result) {
-			if (!result) {
-				users.insert({
-					"name"        : req.body.name,
-					"organization": req.body.organization,
-					"email"       : req.body.email,
-					"password"    : md5(req.body.password)
-				}, function (err, result) {
-					saveAndSendNewSessionId(req, res);
-					db.close();
-				});
-			} else {
-				res.send("Already exists " + req.body.email);
+			delete inactive[email].code;
+
+			users.insert(inactive[email], function (err, result) {
 				db.close();
-			}
+				saveAndSendNewSessionId(req, res);
+				delete inactive[email];
+			});
 		});
-
-	});
-
+	}
 });
+
+
+app.post("/register", function (req, res) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var email = req.body.email;
+			var users = db.collection("users");
+
+			users.findOne({ "email": email }, function (err, result) {
+				var code;
+
+				if (!result) {
+					code = getRandomInt(1000, 9999).toString();
+
+					transporter.sendMail({
+						from   : "registrationtesting@rd-arts.com",
+						to     : email,
+						subject: "activation code",
+						text   : code
+					}, function(error, info){
+					    if(error){
+					        console.log(error);
+					    } else {
+					    	inactive[req.body.email] = {
+					    		"code"        : code,
+					    		"name"        : req.body.name,
+					    		"organization": req.body.organization,
+					    		"email"       : email,
+					    		"password"    : md5(req.body.password)
+					    	};
+
+					    	res.status(200).send("actvation code sent");
+					    	// Object.keys(info).forEach(function (k, i) {
+					    	// 	console.log(k, info[k]);
+					    	// });
+					    }
+					});
+				} else {
+					db.close();
+					res.send("Already exists " + req.body.email);
+				}
+			});
+		});
+});
+
+// app.post("/register", function (req, res) {
+// 	mongodb.connect(dbUrl, function (err, db) {
+// 		var users = db.collection("users");
+
+// 		users.findOne({ "email": req.body.email }, function (err, result) {
+// 			if (!result) {
+// 				users.insert({
+// 					"name"        : req.body.name,
+// 					"organization": req.body.organization,
+// 					"email"       : req.body.email,
+// 					"password"    : md5(req.body.password)
+// 				}, function (err, result) {
+// 					db.close();
+// 					saveAndSendNewSessionId(req, res);
+// 				});
+// 			} else {
+// 				db.close();
+// 				res.send("Already exists " + req.body.email);
+// 			}
+// 		});
+// 	});
+// });
 
 app.post("/reset-password", function (req, res) {
 	mongodb.connect(dbUrl, function (err, db) {
@@ -118,11 +175,9 @@ app.post("/reset-password", function (req, res) {
 					db.close();
 				}
 			);
+		} else {
+			db.close();
 		}
-
-
-
-		// db.close();
 	});
 });
 
