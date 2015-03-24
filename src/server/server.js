@@ -10,14 +10,8 @@ var multer     = require('multer');
 var nodemailer    = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 
-var transporter = nodemailer.createTransport(smtpTransport({
-    host: 'mail.rd-arts.com',
-    port: 587,
-    auth: {
-        user: 'registrationtesting',
-        pass: 'regtest5678'
-    }
-}));
+var mailConfig = require("./mail-config.js");
+var transporter = nodemailer.createTransport(smtpTransport(mailConfig));
 
 var crypto = require('crypto');
 
