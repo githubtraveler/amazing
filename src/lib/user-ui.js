@@ -4,19 +4,45 @@ $(document).ready(function () {
 	var apiUrl  = "http://localhost:3000";
 	var $result = $("#result");
 
-	var login = function (sessionId) {
+	var login = function (email, sessionId) {
+		localStorage.setItem("email", email);
 		localStorage.setItem("session-id", sessionId);
 
 		$("#login-register-modal").modal("hide");
 		$("#login-btn").hide();
 		$("#logout-btn").show();
+
+		sessionLinks();
 	};
+
+	var sessionLinks = function () {
+		$("a.download").each(function () {
+			var $this = $(this), href;
+			var file  = $this.data("href");
+
+			var sessionId = localStorage.getItem("session-id");
+			var email     = localStorage.getItem("email");
+
+			if (sessionId && email && file) {
+				href = apiUrl.concat("/download/", email, "/", sessionId, "/", file);
+				$this.attr("href", href);
+			}
+		});
+	};
+
+	var unsessionLinks = function () {
+		$("a.download").attr("href", "");
+	};
+
 
 	$("#logout-btn").on("click", function () {
 		localStorage.removeItem("session-id");
+		localStorage.removeItem("email");
 
 		$("#login-btn").show();
 		$("#logout-btn").hide();
+
+		unsessionLinks();
 	});
 
 
@@ -60,6 +86,8 @@ $(document).ready(function () {
 		if (sessionId) {
 			$("#login-btn").hide();
 			$("#logout-btn").show();
+
+			sessionLinks();
 		}
 	}());
 
@@ -75,7 +103,7 @@ $(document).ready(function () {
 				"email"   : $email.val(),
 				"password": $password.val()
 			}, function (sessionId) {
-				login(sessionId);
+				login($email.val(), sessionId);
 
 				console.log("Logged in with session id :", sessionId);
 			}).fail(function (event) {
@@ -133,6 +161,4 @@ $(document).ready(function () {
 			});
 		});
 	}());
-
-
 });

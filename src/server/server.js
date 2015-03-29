@@ -230,4 +230,28 @@ app.post("/login", function (req, res) {
 	});
 });
 
+app.get("/download/:email/:session/:file", function (req, res) {
+	var params = req.params;
+
+	var email     = params.email;
+	var sessionId = params.session;
+	var file      = params.file;
+
+	console.log(file, email, sessionId, sessions[email]);
+
+	if (sessionId === sessions[email]) {
+		res.sendFile(__dirname + "/download/" + file);
+	} else {
+		res.sendStatus(403);
+	}
+});
+
+// app.post("/download", function (req, res) {
+// 	if (req.body.sessionId === sessions[req.body.email]) {
+// 		res.sendFile(__dirname + "/download/" + req.body.filename);
+// 	} else {
+// 		console.log("invalid session id");
+// 	}
+// });
+
 app.listen(3000);
