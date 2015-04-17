@@ -1,6 +1,7 @@
 "use strict";
 
 var mongodb = require("mongodb").MongoClient;
+var dbUrl   = "mongodb://localhost/test";
 
 var express    = require("express");
 var app        = express();
@@ -9,16 +10,13 @@ var multer     = require("multer");
 
 var nodemailer    = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
-
-var mailConfig  = require("./config/mail-config.js");
-var transporter = nodemailer.createTransport(smtpTransport(mailConfig));
-
-var crypto = require("crypto");
+var mailConfig    = require("./config/mail-config.js");
+var transporter   = nodemailer.createTransport(smtpTransport(mailConfig));
 
 var paypal       = require("paypal-rest-sdk");
 var paypalConfig = require("./config/paypal-config.js");
 
-var dbUrl = "mongodb://localhost/test";
+var crypto = require("crypto");
 
 var md5 = function (s) {
 	return crypto.createHash("md5").update(s).digest("hex");
@@ -27,6 +25,10 @@ var md5 = function (s) {
 var sessions   = {};
 var resetCodes = {};
 var inactive   = {};
+
+var prices = {
+	"app1": "5.00"
+};
 
 var generateSessionId = function () {
 	return md5(Math.random().toString());
@@ -85,7 +87,6 @@ app.post("/activate", function (req, res) {
 		});
 	}
 });
-
 
 app.post("/register", function (req, res) {
 		mongodb.connect(dbUrl, function (err, db) {
@@ -255,14 +256,12 @@ app.post("/purchase", function (req, res) {
 	var payment = {
 		"intent": "sale",
 		"payer": {
-			"payment_method": "credit_card",
-			"funding_instruments": [{
-				"credit_card": req.body
-			}]
+			"payment_method"     : "credit_card",
+			"funding_instruments": [{ "credit_card": req.body.cc }]
 		},
 		"transactions": [{
 			"amount": {
-				"total": "5.00",
+				"total"   : prices[req.body.item],
 				"currency": "USD"
 			},
 			"description": "My awesome payment"
@@ -271,20 +270,11 @@ app.post("/purchase", function (req, res) {
 
 	paypal.payment.create(payment, function (error, payment) {
 		if (!error) {
-			console.log("success", payment);
+			res.status(payment.httpStatusCode).send(payment.state);
 		} else {
-			console.log(error);
+			res.status(error.httpStatusCode).send(error.message);
 		}
 	});
-	console.log("%j", req.body);
 });
-
-// app.post("/download", function (req, res) {
-// 	if (req.body.sessionId === sessions[req.body.email]) {
-// 		res.sendFile(__dirname + "/download/" + req.body.filename);
-// 	} else {
-// 		console.log("invalid session id");
-// 	}
-// });
 
 app.listen(3000);

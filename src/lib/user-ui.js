@@ -77,7 +77,10 @@ $(document).ready(function () {
 
 		event.preventDefault();
 
-		$.post((apiUrl + "/purchase"), ccData, function (res) {
+		$.post((apiUrl + "/purchase"), {
+			"item": "app1",
+			"cc"  : ccData
+		}, function (res) {
 			alert(res);
 		});
 	});
