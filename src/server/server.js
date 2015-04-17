@@ -10,13 +10,13 @@ var multer     = require("multer");
 var nodemailer    = require("nodemailer");
 var smtpTransport = require("nodemailer-smtp-transport");
 
-var mailConfig  = require("./mail-config.js");
+var mailConfig  = require("./config/mail-config.js");
 var transporter = nodemailer.createTransport(smtpTransport(mailConfig));
 
 var crypto = require("crypto");
 
 var paypal       = require("paypal-rest-sdk");
-var paypalConfig = require("./paypal/paypal-config.js");
+var paypalConfig = require("./config/paypal-config.js");
 
 var dbUrl = "mongodb://localhost/test";
 
