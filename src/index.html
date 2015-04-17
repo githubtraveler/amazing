@@ -522,9 +522,9 @@
 							<input id="cc-number" required pattern="\d+" maxlength="19" class="form-control" type="text">
 						</div>
 						<div class="form-group">
-							<label for="cc-expiry-month">Expiry Date (mm/yyyy)</label> <br>
-							<input id="cc-expiry-month" required pattern="\d{1,2}" class="form-control" style="width:auto; display: inline-block;" size="2" type="text"> /
-							<input id="cc-expiry-year"  required pattern="\d{4}"   class="form-control" style="width:auto; display: inline-block;" size="4" type="text">
+							<label for="cc-expire-month">Expire Date</label> <br>
+							<input id="cc-expire-month" required pattern="\d{1,2}" maxlength="2" placeholder="mm"   class="form-control" style="width:auto; display: inline-block;" size="3" type="text"> /
+							<input id="cc-expire-year"  required pattern="\d{4}"   maxlength="4" placeholder="yyyy" class="form-control" style="width:auto; display: inline-block;" size="5" type="text">
 						</div>
 						<div class="form-group">
 							<label for="cc-cvv2">CVV</label>

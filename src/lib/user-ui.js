@@ -64,6 +64,24 @@ $(document).ready(function () {
 
 	});
 
+	$("#cc-form").on("submit", function (event) {
+		var ccData = {
+			"number"      : $("#cc-number").val(),
+			"type"        : $("#cc-type").val(),
+			"expire_month": $("#cc-expire-month").val(),
+			"expire_year" : $("#cc-expire-year").val(),
+			"cvv2"        : $("#cc-cvv2").val(),
+			"first_name"  : $("#cc-first-name").val(),
+			"last_name"   : $("#cc-last-name").val()
+		};
+
+		event.preventDefault();
+
+		$.post((apiUrl + "/purchase"), ccData, function (res) {
+			alert(res);
+		});
+	});
+
 	$("#reset-form").on("submit", function (event) {
 		var $email    = $("#login-email");
 		var $code     = $("#reset-code");

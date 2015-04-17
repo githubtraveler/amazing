@@ -5,15 +5,18 @@ var mongodb = require("mongodb").MongoClient;
 var express    = require("express");
 var app        = express();
 var bodyParser = require("body-parser");
-var multer     = require('multer');
+var multer     = require("multer");
 
-var nodemailer    = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
+var nodemailer    = require("nodemailer");
+var smtpTransport = require("nodemailer-smtp-transport");
 
-var mailConfig = require("./mail-config.js");
+var mailConfig  = require("./mail-config.js");
 var transporter = nodemailer.createTransport(smtpTransport(mailConfig));
 
-var crypto = require('crypto');
+var crypto = require("crypto");
+
+var paypal       = require("paypal-rest-sdk");
+var paypalConfig = require("./paypal/paypal-config.js");
 
 var dbUrl = "mongodb://localhost/test";
 
@@ -61,6 +64,8 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
+
+paypal.configure(paypalConfig.api);
 
 app.post("/activate", function (req, res) {
 	var email = req.body.email;
@@ -244,6 +249,34 @@ app.get("/download/:email/:session/:file", function (req, res) {
 	} else {
 		res.sendStatus(403);
 	}
+});
+
+app.post("/purchase", function (req, res) {
+	var payment = {
+		"intent": "sale",
+		"payer": {
+			"payment_method": "credit_card",
+			"funding_instruments": [{
+				"credit_card": req.body
+			}]
+		},
+		"transactions": [{
+			"amount": {
+				"total": "5.00",
+				"currency": "USD"
+			},
+			"description": "My awesome payment"
+		}]
+	};
+
+	paypal.payment.create(payment, function (error, payment) {
+		if (!error) {
+			console.log("success", payment);
+		} else {
+			console.log(error);
+		}
+	});
+	console.log("%j", req.body);
 });
 
 // app.post("/download", function (req, res) {
