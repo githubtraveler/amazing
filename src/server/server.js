@@ -270,7 +270,33 @@ app.post("/purchase", function (req, res) {
 
 	paypal.payment.create(payment, function (error, payment) {
 		if (!error) {
-			res.status(payment.httpStatusCode).send(payment.state);
+			if (sessions[payment.email] === payment.session) {
+				mongodb.connect(dbUrl, function (err, db) {
+					var users = db.collection("users");
+
+					users.update(
+						{ "email": req.body.email },
+						{ "$addToSet": {
+							"purchases": {
+								"item"     : req.body.item,
+								"paymentId": payment.id
+							}
+						}}, function (err, result) {
+
+							if (result) {
+							} else {
+							}
+
+							db.close();
+						}
+					);
+				});
+
+
+				res.status(payment.httpStatusCode).send(payment.state);
+			} else {
+				res.sendStatus(403);
+			}
 		} else {
 			res.status(error.httpStatusCode).send(error.message);
 		}

@@ -78,10 +78,13 @@ $(document).ready(function () {
 		event.preventDefault();
 
 		$.post((apiUrl + "/purchase"), {
-			"item": "app1",
-			"cc"  : ccData
+			"email"  : localStorage.getItem("email"),
+			"session": localStorage.getItem("session-id"),
+			"item"   : "app1",
+			"cc"     : ccData
 		}, function (res) {
 			alert(res);
+			$("#purchase-app").modal("hide");
 		});
 	});
 
