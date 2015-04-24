@@ -11,7 +11,7 @@ $(document).ready(function () {
 			"app"    : item
 		}, function (res) {
 			var $products = $("#products");
-			console.log(res);
+
 			if (res === "true") {
 				$products.find(".app1.paid").show();
 			} else {

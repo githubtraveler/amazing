@@ -243,8 +243,6 @@ app.get("/download/:email/:session/:file", function (req, res) {
 	var sessionId = params.session;
 	var file      = params.file;
 
-	console.log(file, email, sessionId, sessions[email]);
-
 	if (sessionId === sessions[email]) {
 		res.sendFile(__dirname + "/download/" + file);
 	} else {
@@ -257,7 +255,9 @@ app.post("/purchased", function (req, res) {
 		var users = db.collection("users");
 
 		users.findOne({ "email": req.body.email }, function (err, result) {
-			var found = result.purchases.some(function (purchase) {
+			var purchases = result.purchases;
+
+			var found = purchases && purchases.some(function (purchase) {
 				return (purchase.item === req.body.app);
 			});
 
