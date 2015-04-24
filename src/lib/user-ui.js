@@ -4,6 +4,22 @@ $(document).ready(function () {
 	var apiUrl  = "http://localhost:3000";
 	var $result = $("#result");
 
+	var placeBuyButtons = function (email, sessionId, item) {
+		$.post((apiUrl + "/purchased"), {
+			"email"  : email,
+			"session": sessionId,
+			"app"    : item
+		}, function (res) {
+			var $products = $("#products");
+			console.log(res);
+			if (res === "true") {
+				$products.find(".app1.paid").show();
+			} else {
+				$products.find(".app1.unpaid").show();
+			}
+		});
+	};
+
 	var login = function (email, sessionId) {
 		localStorage.setItem("email", email);
 		localStorage.setItem("session-id", sessionId);
@@ -106,10 +122,13 @@ $(document).ready(function () {
 
 	(function autoLogin () {
 		var sessionId = localStorage.getItem("session-id");
+		var email     = localStorage.getItem("email");
 
 		if (sessionId) {
 			$("#login-btn").hide();
 			$("#logout-btn").show();
+
+			placeBuyButtons(email, sessionId, "app1");
 
 			sessionLinks();
 		}

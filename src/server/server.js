@@ -253,20 +253,15 @@ app.get("/download/:email/:session/:file", function (req, res) {
 });
 
 app.post("/purchased", function (req, res) {
-	var app = req.body.app;
-
 	mongodb.connect(dbUrl, function (err, db) {
 		var users = db.collection("users");
 
 		users.findOne({ "email": req.body.email }, function (err, result) {
-			var found = false;
-
-			result.purchases.forEach(function (purchase) {
-				found = (purchase.item === app);
+			var found = result.purchases.some(function (purchase) {
+				return (purchase.item === req.body.app);
 			});
 
-
-			res.status(400).send(found ? "found" : "not found");
+			res.status(200).send(found ? "true" : "false");
 		});
 	});
 });
