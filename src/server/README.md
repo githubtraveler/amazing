@@ -9,7 +9,8 @@
     npm install
 
 
-## To run client page (Temporary requires grunt to run. Install via `npm install -g grunt-cli` )
+## To run client page 
+(Temporary requires grunt to run. Install via `npm install -g grunt-cli` )
 
     cd src
     grunt connect:dev:keepalive
