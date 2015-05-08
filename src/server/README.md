@@ -1,7 +1,7 @@
 ## Prerequisites
 
-* node.js
-* mongodb
+* [node.js](https://nodejs.org/) 
+* [mongodb](https://www.mongodb.org/)
 
 ## To install dependencies
 
