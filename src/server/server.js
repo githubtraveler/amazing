@@ -1,5 +1,7 @@
 "use strict";
 
+var path = require("path");
+
 var mongodb = require("mongodb").MongoClient;
 var dbUrl   = "mongodb://localhost/test";
 
@@ -68,6 +70,10 @@ app.use(function (req, res, next) {
 });
 
 paypal.configure(paypalConfig.api);
+
+
+app.use(express.static(path.resolve(__dirname + "/../client")));
+
 
 app.post("/activate", function (req, res) {
 	var email = req.body.email;
