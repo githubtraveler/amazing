@@ -324,4 +324,8 @@ app.post("/purchase", function (req, res) {
 	});
 });
 
-app.listen(config.port || 3000);
+try {
+	app.listen(config.port || 3000);
+} catch (err) {
+	console.log(err);
+}
