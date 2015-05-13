@@ -1,9 +1,12 @@
 "use strict";
 
-var path = require("path");
+var path   = require("path");
+var crypto = require("crypto");
+
+var config = require("./config/server-config.js");
 
 var mongodb = require("mongodb").MongoClient;
-var dbUrl   = "mongodb://localhost/test";
+var dbUrl   = config.dbUrl;
 
 var express    = require("express");
 var app        = express();
@@ -17,8 +20,6 @@ var transporter   = nodemailer.createTransport(smtpTransport(mailConfig));
 
 var paypal       = require("paypal-rest-sdk");
 var paypalConfig = require("./config/paypal-config.js");
-
-var crypto = require("crypto");
 
 var md5 = function (s) {
 	return crypto.createHash("md5").update(s).digest("hex");
@@ -51,9 +52,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
-app.use(function (req, res, next) {
+// app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
 
     // Request methods you wish to allow
     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -66,13 +67,13 @@ app.use(function (req, res, next) {
     // res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Pass to next layer of middleware
-    next();
-});
+    // next();
+// });
 
 paypal.configure(paypalConfig.api);
 
 
-app.use(express.static(path.resolve(__dirname + "/../client")));
+app.use(express.static(path.resolve(__dirname + "/" + config.staticContentPath)));
 
 
 app.post("/activate", function (req, res) {
@@ -323,4 +324,4 @@ app.post("/purchase", function (req, res) {
 	});
 });
 
-app.listen(3000);
+app.listen(config.port || 3000);

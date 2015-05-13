@@ -3,5 +3,5 @@ log
 *.log
 dist
 data
-mail-config.js
-paypal-config.js
+*-config.js
+*-config.js
