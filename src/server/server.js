@@ -278,7 +278,7 @@ app.post("/purchased", function (req, res) {
 		var users = db.collection("users");
 
 		users.findOne({ "email": req.body.email }, function (err, result) {
-			var purchases = result.purchases;
+			var purchases = result && result.purchases;
 
 			var found = purchases && purchases.some(function (purchase) {
 				return (purchase.item === req.body.app);
