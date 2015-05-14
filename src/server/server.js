@@ -76,6 +76,22 @@ paypal.configure(paypalConfig.api);
 app.use(express.static(path.resolve(__dirname + "/" + config.staticContentPath)));
 
 
+mongodb.connect(dbUrl, function (err, db) {
+	db.collection("users", {"strict":true}, function (err, collection) {
+		if (!collection) {
+			console.log("'users' collection does not exist");
+
+    		db.createCollection("users", function () {
+    			console.log("created 'users' collection");
+    			db.close();
+    		});
+		} else {
+			console.log("using existing 'users' collection");
+    		db.close();
+		}
+  	});
+});
+
 app.post("/activate", function (req, res) {
 	var email = req.body.email;
 	var code  = req.body.code;
@@ -324,8 +340,6 @@ app.post("/purchase", function (req, res) {
 	});
 });
 
-try {
-	app.listen(config.port || 3000);
-} catch (err) {
-	console.log(err);
-}
+
+app.listen(config.port || 3000);
+

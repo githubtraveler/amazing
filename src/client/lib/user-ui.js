@@ -101,6 +101,8 @@ $(document).ready(function () {
 		}, function (res) {
 			alert(res);
 			$("#purchase-app").modal("hide");
+		}).fail(function (event) {
+			alert(event.responseText);
 		});
 	});
 
