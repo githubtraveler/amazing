@@ -39,7 +39,7 @@ $(document).ready(function () {
 			var email     = localStorage.getItem("email");
 
 			if (sessionId && email && file) {
-				href = apiUrl.concat("/download/", email, "/", sessionId, "/", file);
+				href = "".concat("/download/", email, "/", sessionId, "/", file);
 				$this.attr("href", href);
 			}
 		});

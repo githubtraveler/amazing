@@ -52,9 +52,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
-app.use(function (req, res, next) {
+// app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://rd-arts.com:3000');
+    // res.setHeader('Access-Control-Allow-Origin', 'http://rd-arts.com:3000');
 
     // Request methods you wish to allow
     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -67,8 +67,8 @@ app.use(function (req, res, next) {
     // res.setHeader('Access-Control-Allow-Credentials', true);
 
     // Pass to next layer of middleware
-    next();
-});
+    // next();
+// });
 
 paypal.configure(paypalConfig.api);
 
