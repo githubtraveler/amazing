@@ -1,11 +1,10 @@
 $(document).ready(function () {
 	"use strict";
 
-	var apiUrl  = "http://localhost:3000";
 	var $result = $("#result");
 
 	var placeBuyButtons = function (email, sessionId, item) {
-		$.post((apiUrl + "/purchased"), {
+		$.post("/purchased", {
 			"email"  : email,
 			"session": sessionId,
 			"app"    : item
@@ -67,7 +66,7 @@ $(document).ready(function () {
 
 		event.preventDefault();
 
-		$.post((apiUrl + "/reset-request"), {
+		$.post("/reset-request", {
 			"email": $email.val()
 		}, function (res) {
 			alert("Password reset code was sent to " + $email.val());
@@ -93,7 +92,7 @@ $(document).ready(function () {
 
 		event.preventDefault();
 
-		$.post((apiUrl + "/purchase"), {
+		$.post("/purchase", {
 			"email"  : localStorage.getItem("email"),
 			"session": localStorage.getItem("session-id"),
 			"item"   : "app1",
@@ -113,7 +112,7 @@ $(document).ready(function () {
 
 		event.preventDefault();
 
-		$.post((apiUrl + "/reset-password"), {
+		$.post("/reset-password", {
 			"email"   : $email.val(),
 			"code"    : $code.val(),
 			"password": $password.val()
@@ -144,7 +143,7 @@ $(document).ready(function () {
 		$loginForm.on("submit", function (event) {
 			event.preventDefault();
 
-			$.post((apiUrl + "/login"), {
+			$.post("/login", {
 				"email"   : $email.val(),
 				"password": $password.val()
 			}, function (sessionId) {
@@ -180,7 +179,7 @@ $(document).ready(function () {
 		$registerForm.on("submit", function (event) {
 			event.preventDefault();
 
-			$.post((apiUrl + "/register"), {
+			$.post("/register", {
 				"name"        : $name.val(),
 				"organization": $organization.val(),
 				"email"       : $email.val(),
@@ -197,7 +196,7 @@ $(document).ready(function () {
 		$("#activate-form").on("submit", function (event) {
 			event.preventDefault();
 
-			$.post((apiUrl + "/activate"), {
+			$.post("/activate", {
 				"email": $email.val(),
 				"code" : $("#activate-code").val()
 			} ,function (res) {
