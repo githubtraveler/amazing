@@ -98,8 +98,12 @@ $(document).ready(function () {
 			"item"   : "app1",
 			"cc"     : ccData
 		}, function (res) {
+			var $products = $("#products");
 			alert(res);
 			$("#purchase-app").modal("hide");
+
+			$products.find(".unpaid").hide();
+			$products.find(".paid").show();
 		}).fail(function (event) {
 			alert(event.responseText);
 		});

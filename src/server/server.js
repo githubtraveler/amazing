@@ -33,12 +33,12 @@ var prices = {
 	"app1": "5.00"
 };
 
-var generateSessionId = function () {
+var randomMd5 = function () {
 	return md5(Math.random().toString());
 };
 
 var saveAndSendNewSessionId = function (req, res) {
-	var sessionKey = generateSessionId();
+	var sessionKey = randomMd5();
 
 	sessions[req.body.email] = sessionKey;
 	res.status(200).send(sessionKey);
@@ -129,7 +129,7 @@ app.post("/register", function (req, res) {
 						text   : code
 					}, function(error, info){
 					    if(error){
-					        console.log(error);
+					        console.log("Mail problem:", error);
 					    } else {
 					    	inactive[req.body.email] = {
 					    		"code"        : code,
@@ -285,6 +285,40 @@ app.post("/purchased", function (req, res) {
 			});
 
 			res.status(200).send(found ? "true" : "false");
+
+			db.close();
+		});
+	});
+});
+
+app.post("/check-license", function (req, res) {
+	mongodb.connect(dbUrl, function (err, db) {
+		var users = db.collection("users");
+
+		users.findOne({ "email": req.body.email }, function (err, result) {
+			var activationDate;
+			var purchases = result && result.purchases;
+
+			var found = purchases && purchases.some(function (purchase) {
+				var found = (
+					(purchase.item === req.body.app) &&
+					(purchase.key  === req.body.key)
+				);
+
+				if (found) {
+					activationDate = purchase.date;
+				}
+
+				return found;
+			});
+
+			if (found) {
+				res.status(200).send(activationDate);
+			} else {
+				res.sendStatus(400);
+			}
+
+			db.close();
 		});
 	});
 });
@@ -316,7 +350,9 @@ app.post("/purchase", function (req, res) {
 						{ "$addToSet": {
 							"purchases": {
 								"item"     : req.body.item,
-								"paymentId": payment.id
+								"paymentId": payment.id,
+								"key"      : randomMd5(),
+								"date"     : (new Date()).toISOString()
 							}
 						}}, function (err, result) {
 
