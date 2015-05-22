@@ -19,13 +19,27 @@ $(document).ready(function () {
 		});
 	};
 
-	var login = function (email, sessionId) {
+	var setLoginButtons = function () {
+		var $userMenu       = $("#user-menu");
+		var $userMenuButton = $userMenu.find("button");
+
+		$("#guest-menu").hide();
+		$userMenu.show();
+
+		$userMenuButton.find("ins").remove();
+
+		$userMenuButton.prepend($("<ins/>", {
+			"text": localStorage.getItem("name")
+		}));
+	};
+
+	var login = function (email, sessionId, name) {
 		localStorage.setItem("email", email);
 		localStorage.setItem("session-id", sessionId);
+		localStorage.setItem("name", name);
 
 		$("#login-register-modal").modal("hide");
-		$("#login-btn").hide();
-		$("#logout-btn").show();
+		setLoginButtons();
 
 		sessionLinks();
 	};
@@ -54,8 +68,8 @@ $(document).ready(function () {
 		localStorage.removeItem("session-id");
 		localStorage.removeItem("email");
 
-		$("#login-btn").show();
-		$("#logout-btn").hide();
+		$("#guest-menu").show();
+		$("#user-menu").hide();
 
 		unsessionLinks();
 	});
@@ -130,11 +144,8 @@ $(document).ready(function () {
 		var email     = localStorage.getItem("email");
 
 		if (sessionId) {
-			$("#login-btn").hide();
-			$("#logout-btn").show();
-
+			setLoginButtons();
 			placeBuyButtons(email, sessionId, "app1");
-
 			sessionLinks();
 		}
 	}());
@@ -150,10 +161,10 @@ $(document).ready(function () {
 			$.post("/login", {
 				"email"   : $email.val(),
 				"password": $password.val()
-			}, function (sessionId) {
-				login($email.val(), sessionId);
+			}, function (data) {
+				login($email.val(), data.key, data.name);
 
-				console.log("Logged in with session id :", sessionId);
+				console.log(data.name, " logged in with session id :", data.key);
 			}).fail(function (event) {
 				$email[0].setCustomValidity(event.responseText);
 			});

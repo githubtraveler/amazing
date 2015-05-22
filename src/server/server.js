@@ -37,11 +37,15 @@ var randomMd5 = function () {
 	return md5(Math.random().toString());
 };
 
-var saveAndSendNewSessionId = function (req, res) {
+var saveAndSendNewSessionInfo = function (req, res, data) {
 	var sessionKey = randomMd5();
 
 	sessions[req.body.email] = sessionKey;
-	res.status(200).send(sessionKey);
+
+	res.status(200).send({
+		"key": sessionKey,
+		"name": data.name
+	});
 };
 
 var getRandomInt = function (min, max) {
@@ -249,7 +253,7 @@ app.post("/login", function (req, res) {
 			if (!result) {
 				res.status(400).send("Account not found");
 			} else if (md5(req.body.password) === result.password) {
-				saveAndSendNewSessionId(req, res);
+				saveAndSendNewSessionInfo(req, res, {"name": result.name});
 			} else {
 				res.status(400).send("Access denied. Wrong password.");
 			}
