@@ -63,10 +63,64 @@ $(document).ready(function () {
 		$("a.download").attr("href", "");
 	};
 
+	var logout = function () {
+		localStorage.clear();
 
-	$("#profile-modal").on("show.bs.modal", function (event) {
-		console.log("!");
-	});
+		$("#guest-menu").show();
+		$("#user-menu").hide();
+
+		unsessionLinks();
+	};
+
+	var kick = function (event) {
+		if (event.status === 403 || event.status === 401) {
+			logout();
+		}
+	};
+
+	$("#logout-btn").on("click", logout);
+
+	(function () {
+		var $fields = {
+			"name"        : $("#profile-name"),
+			"email"       : $("#profile-email"),
+			"organization": $("#profile-organization")
+		};
+
+		var $profileModal = $("#profile-modal");
+
+		var failer = function (event) {
+			alert(event.responseText);
+			$profileModal.modal("hide");
+			kick(event);
+		};
+
+		$profileModal.on("show.bs.modal", function (event) {
+			$.post("/get-profile", {
+				"key"  : localStorage["session-id"],
+				"email": localStorage.email
+			}, function (res) {
+				Object.keys($fields).forEach(function (k) {
+					$fields[k].val(res[k]);
+				});
+			}).fail(failer);
+		});
+
+		$("#profile-form").on("submit", function (event) {
+			var data = { "key": localStorage["session-id"] };
+
+			Object.keys($fields).forEach(function (k) {
+				data[k] = $fields[k].val();
+			});
+
+			$.post("/update-profile", data, function (res) {
+				alert(res);
+				$profileModal.modal("hide");
+			}).fail(failer);
+		});
+	}());
+
+
 
 	$("#purchases-modal").on("show.bs.modal", function (event) {
 		$.post("/show-purchases", { "email": localStorage.email }, function (res) {
@@ -74,14 +128,6 @@ $(document).ready(function () {
 		});
 	});
 
-	$("#logout-btn").on("click", function () {
-		localStorage.clear();
-
-		$("#guest-menu").show();
-		$("#user-menu").hide();
-
-		unsessionLinks();
-	});
 
 
 	$("#password-reset-request").on("click", function (event) {

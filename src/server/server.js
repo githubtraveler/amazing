@@ -167,14 +167,53 @@ app.post("/get-profile", function (req, res) {
 
 			users.findOne({ "email": req.body.email }, function (err, result) {
 				if (result) {
-					res.status(400).send(result);
+					res.status(200).send({
+						"name"        : result.name,
+						"organization": result.organization,
+						"email"       : result.email
+					});
 				} else {
 					res.sendStatus(500);
 				}
+
+				db.close();
 			});
 		});
 	} else {
-		res.status(403).send("Invalid session key");
+		res.status(403).send("Invalid session credentials");
+	}
+});
+
+
+app.post("/update-profile", function (req, res) {
+	var email        = req.body.email;
+	var key          = req.body.key;
+	var name         = req.body.name;
+	var organization = req.body.organization;
+
+	if (sessions[email] === key) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var users = db.collection("users");
+
+			users.update(
+				{ "email": email },
+				{ "$set": {
+					"email"       : email,
+					"name"        : name,
+					"organization": organization
+				}}, function (err, result) {
+					if (result) {
+						res.status(200).send("Profile updated");
+					} else {
+						res.sendStatus(500);
+					}
+
+					db.close();
+				}
+			);
+		});
+	} else {
+		res.status(403).send("Invalid session credentials.");
 	}
 });
 
