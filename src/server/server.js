@@ -157,6 +157,27 @@ app.post("/register", function (req, res) {
 		});
 });
 
+app.post("/get-profile", function (req, res) {
+	var email = req.body.email;
+	var key   = req.body.key;
+
+	if (sessions[email] === key) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var users = db.collection("users");
+
+			users.findOne({ "email": req.body.email }, function (err, result) {
+				if (result) {
+					res.status(400).send(result);
+				} else {
+					res.sendStatus(500);
+				}
+			});
+		});
+	} else {
+		res.status(403).send("Invalid session key");
+	}
+});
+
 // app.post("/register", function (req, res) {
 // 	mongodb.connect(dbUrl, function (err, db) {
 // 		var users = db.collection("users");
@@ -324,6 +345,24 @@ app.post("/check-license", function (req, res) {
 
 			db.close();
 		});
+	});
+});
+
+app.post("/show-purchases", function (req, res) {
+	var email = req.body.email;
+
+	mongodb.connect(dbUrl, function (err, db) {
+		var users = db.collection("users");
+
+		users.findOne({ "email": req.body.email }, function (err, result) {
+			var activationDate;
+			var purchases = result && result.purchases;
+
+			if (purchases) {
+				res.status(200).send(purchases);
+			}
+		});
+
 	});
 });
 

@@ -64,9 +64,18 @@ $(document).ready(function () {
 	};
 
 
+	$("#profile-modal").on("show.bs.modal", function (event) {
+		console.log("!");
+	});
+
+	$("#purchases-modal").on("show.bs.modal", function (event) {
+		$.post("/show-purchases", { "email": localStorage.email }, function (res) {
+			$("#tempCode").text(JSON.stringify(res, null, 2));
+		});
+	});
+
 	$("#logout-btn").on("click", function () {
-		localStorage.removeItem("session-id");
-		localStorage.removeItem("email");
+		localStorage.clear();
 
 		$("#guest-menu").show();
 		$("#user-menu").hide();
