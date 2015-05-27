@@ -178,6 +178,36 @@ $(document).ready(function () {
 		});
 	});
 
+	$("#change-password-form").on("submit", function (event) {
+		var $passFields = {
+			"old"        : $("#old-password"),
+			"new"        : $("#new-password"),
+			"confirm-new": $("#confirm-new-password")
+		};
+
+		var data = {
+			"email"      : localStorage.email,
+			"oldPassword": $passFields.old.val(),
+			"newPassword": $passFields.new.val()
+		};
+
+		var $this = $(this);
+
+		event.preventDefault();
+
+		if (data.newPassword === $passFields["confirm-new"].val()) {
+			$.post("/change-password", data, function (res) {
+				alert(res);
+				$this.trigger("reset");
+				$("#profile-modal").modal("hide");
+			}).fail(function (event) {
+				alert(event.responseText);
+			});
+		} else {
+			$passFields.new[0].setCustomValidity("New password and its confirmation must match");
+		}
+	});
+
 	$("#reset-form").on("submit", function (event) {
 		var $email    = $("#login-email");
 		var $code     = $("#reset-code");

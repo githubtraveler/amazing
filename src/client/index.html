@@ -540,23 +540,75 @@
 					Edit Profile
 				</div>
 				<div class="modal-body">
-					<form id="profile-form">
-						<div class="modal-body">
-							<div class="form-group">
-								<label for="profile-name">Full Name</label>
-								<input id="profile-name" class="form-control" type="text" required>
+					<div class="panel-group" id="profile-panel-group" role="tablist" aria-multiselectable="true">
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="profile-panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#profile-panel-group"
+									href="#profile-collapse" aria-expanded="true" aria-controls="login">
+										Edit Profile
+									</a>
+								</h4>
 							</div>
-							<div class="form-group">
-								<label for="profile-organization">Organization</label>
-								<input id="profile-organization" class="form-control" type="text" required>
+
+							<div id="profile-collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="profile-panel-heading">
+								<div class="panel-body">
+									<form id="profile-form">
+										<div class="form-group">
+											<label for="profile-name">Full Name</label>
+											<input id="profile-name" class="form-control" type="text" required>
+										</div>
+
+										<div class="form-group">
+											<label for="profile-organization">Organization</label>
+											<input id="profile-organization" class="form-control" type="text" required>
+										</div>
+
+										<div class="form-group">
+											<label for="profile-email">Email</label>
+											<input id="profile-email" class="form-control" type="email" required>
+										</div>
+
+										<input type="submit" class="btn btn-primary" value="Update ">
+									</form>
+								</div>
 							</div>
-							<div class="form-group">
-								<label for="profile-email">Email</label>
-								<input id="profile-email" class="form-control" type="email" required>
-							</div>
-							<input type="submit" class="btn btn-primary" value="Update ">
 						</div>
-					</form>
+
+						<div class="panel panel-default">
+							<div class="panel-heading" role="tab" id="change-password-heading">
+								<h4 class="panel-title">
+									<a class="collapsed" data-toggle="collapse" data-parent="#profile-panel-group"
+									href="#change-password-collapse" aria-expanded="false" aria-controls="change-password-collapse">
+										Change Password
+									</a>
+								</h4>
+							</div>
+
+							<div id="change-password-collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="change-password-heading">
+								<div class="panel-body">
+									<form id="change-password-form">
+										<div class="form-group">
+											<label for="old-password">Old Password</label>
+											<input id="old-password" class="form-control" type="password" required>
+										</div>
+
+										<div class="form-group">
+											<label for="new-password">New Password</label>
+											<input id="new-password" class="form-control" type="password" required>
+										</div>
+
+										<div class="form-group">
+											<label for="confirm-new-password">Confirm New Password</label>
+											<input id="confirm-new-password" class="form-control" type="password" required>
+										</div>
+
+										<input type="submit" class="btn btn-primary" value="Change Password">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

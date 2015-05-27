@@ -240,32 +240,57 @@ app.post("/update-profile", function (req, res) {
 // 	});
 // });
 
-app.post("/reset-password", function (req, res) {
+app.post("/change-password", function (req, res) {
+	var email       = req.body.email;
+	var oldPassword = md5(req.body.oldPassword);
+	var newPassword = md5(req.body.newPassword);
+
 	mongodb.connect(dbUrl, function (err, db) {
 		var users = db.collection("users");
 
-		var email    = req.body.email;
-		var code     = req.body.code;
-		var password = md5(req.body.password);
+		users.update(
+			{ "email": email, "password": oldPassword },
+			{ "$set": { "password": newPassword }},
+			function (err, result) {
+				console.log(result);
 
-		if (resetCodes[email] === code) {
-			console.log("valid code");
+				if (result) {
+					console.log("password changed", newPassword);
+					res.status(200).send("Password changed");
+				} else {
+					res.status(403).send(err);
+				}
+
+				db.close();
+			}
+		);
+	});
+
+});
+
+app.post("/reset-password", function (req, res) {
+	var email    = req.body.email;
+	var code     = req.body.code;
+	var password = md5(req.body.password);
+
+	if (resetCodes[email] === code) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var users = db.collection("users");
+
 			users.update(
 				{ "email": email },
 				{ "$set": {"password": password }},
 				function (err, result) {
 					if (result) {
 						console.log("password updated", password);
-						res.status(200).send("updated");
+						res.status(200).send("Password updated");
 					}
 
 					db.close();
 				}
 			);
-		} else {
-			db.close();
-		}
-	});
+		});
+	}
 });
 
 app.post("/reset-request", function (req, res) {
