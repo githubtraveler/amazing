@@ -397,6 +397,7 @@ app.post("/check-license", function (req, res) {
 
 				if (found) {
 					activation = new Date(purchase.date);
+					expiry = activation.setDate(activation.getDate() + product["license-life"]);
 				}
 
 				return found;
@@ -405,8 +406,6 @@ app.post("/check-license", function (req, res) {
 			db.close();
 
 			if (found) {
-				expiry = activation.setDate(activation.getDate() + product["license-life"]);
-
 				res.status(200).send((new Date() < expiry) ? "active": "expired");
 			} else {
 				res.status(400).send("Product '" + req.body.app + "' not found.");
