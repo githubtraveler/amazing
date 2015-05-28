@@ -29,7 +29,7 @@ $(document).ready(function () {
 		$userMenuButton.find("ins").remove();
 
 		$userMenuButton.prepend($("<ins/>", {
-			"text": localStorage.getItem("name")
+			"text": localStorage.name
 		}));
 	};
 
@@ -159,12 +159,15 @@ $(document).ready(function () {
 			"last_name"   : $("#cc-last-name").val()
 		};
 
+		var email = localStorage.email;
+		var key   = localStorage["session-id"];
+
 		event.preventDefault();
 
 		$.post("/purchase", {
-			"email"  : localStorage.getItem("email"),
-			"session": localStorage.getItem("session-id"),
-			"item"   : "app1",
+			"email"  : email,
+			"session": key,
+			"item"   : "smsprint",
 			"cc"     : ccData
 		}, function (res) {
 			var $products = $("#products");
@@ -173,6 +176,9 @@ $(document).ready(function () {
 
 			$products.find(".unpaid").hide();
 			$products.find(".paid").show();
+
+			placeBuyButtons(email, key, "smsprint");
+
 		}).fail(function (event) {
 			alert(event.responseText);
 		});
@@ -230,7 +236,7 @@ $(document).ready(function () {
 
 		if (sessionId) {
 			setLoginButtons();
-			placeBuyButtons(email, sessionId, "app1");
+			placeBuyButtons(email, sessionId, "smsprint");
 			sessionLinks();
 		}
 	}());

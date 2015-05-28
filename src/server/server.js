@@ -20,6 +20,8 @@ var transporter   = nodemailer.createTransport(smtpTransport(mailConfig));
 
 var paypal       = require("paypal-rest-sdk");
 var paypalConfig = require("./config/paypal-config.js");
+var products     = require("./config/store-config.js").products;
+
 
 var md5 = function (s) {
 	return crypto.createHash("md5").update(s).digest("hex");
@@ -29,9 +31,6 @@ var sessions   = {};
 var resetCodes = {};
 var inactive   = {};
 
-var prices = {
-	"app1": "5.00"
-};
 
 var randomMd5 = function () {
 	return md5(Math.random().toString());
@@ -385,7 +384,7 @@ app.post("/check-license", function (req, res) {
 		var users = db.collection("users");
 
 		users.findOne({ "email": req.body.email }, function (err, result) {
-			var activationDate;
+			var activation, expiry;
 			var purchases = result && result.purchases;
 
 			var found = purchases && purchases.some(function (purchase) {
@@ -394,20 +393,24 @@ app.post("/check-license", function (req, res) {
 					(purchase.key  === req.body.key)
 				);
 
+				var product = products[req.body.app];
+
 				if (found) {
-					activationDate = purchase.date;
+					activation = new Date(purchase.date);
 				}
 
 				return found;
 			});
 
-			if (found) {
-				res.status(200).send(activationDate);
-			} else {
-				res.sendStatus(400);
-			}
-
 			db.close();
+
+			if (found) {
+				expiry = activation.setDate(activation.getDate() + product["license-life"]);
+
+				res.status(200).send((new Date() < expiry) ? "active": "expired");
+			} else {
+				res.status(400).send("Product '" + req.body.app + "' not found.");
+			}
 		});
 	});
 });
@@ -431,6 +434,8 @@ app.post("/show-purchases", function (req, res) {
 });
 
 app.post("/purchase", function (req, res) {
+	var product = products[req.body.item];
+
 	var payment = {
 		"intent": "sale",
 		"payer": {
@@ -439,10 +444,10 @@ app.post("/purchase", function (req, res) {
 		},
 		"transactions": [{
 			"amount": {
-				"total"   : prices[req.body.item],
-				"currency": "USD"
+				"total"   : product.price,
+				"currency": product.currency
 			},
-			"description": "My awesome payment"
+			"description": "TODO: write description of this transaction" // <- TODO
 		}]
 	};
 
