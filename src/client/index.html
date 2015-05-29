@@ -515,7 +515,7 @@
 	</section>
 
 	<div class="modal fade" id="purchases-modal" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
@@ -524,7 +524,9 @@
 					Purchases
 				</div>
 				<div class="modal-body">
-					<pre id="tempCode"></pre>
+					<table class="table table-bordered table-striped table-responsive" id="purchases">
+						<tr><th>Item</th><th>Key</th><th>Payment ID</th></tr>
+					</table>
 				</div>
 			</div>
 		</div>

@@ -123,8 +123,21 @@ $(document).ready(function () {
 
 
 	$("#purchases-modal").on("show.bs.modal", function (event) {
-		$.post("/show-purchases", { "email": localStorage.email }, function (res) {
-			$("#tempCode").text(JSON.stringify(res, null, 2));
+		$.post("/show-purchases", {
+			"key"  : localStorage["session-id"],
+			"email": localStorage.email
+		}, function (purchases) {
+			var $table = $("#purchases");
+
+			purchases.forEach(function (purchase) {
+				$table.append(
+					$("<tr/>").append(
+						$("<td/>", { "text" : purchase.item      }),
+						$("<td/>", { "text" : purchase.key       }),
+						$("<td/>", { "text" : purchase.paymentId })
+					)
+				);
+			});
 		});
 	});
 
