@@ -397,7 +397,7 @@ app.post("/check-license", function (req, res) {
 
 				if (found) {
 					activation = new Date(purchase.date);
-					expiry = activation.setDate(activation.getDate() + product["license-life"]);
+					expiry     = activation.setDate(activation.getDate() + product["license-life"]);
 				}
 
 				return found;
@@ -405,11 +405,21 @@ app.post("/check-license", function (req, res) {
 
 			db.close();
 
-			if (found) {
-				res.status(200).send((new Date() < expiry) ? "active": "expired");
-			} else {
-				res.status(400).send("Product '" + req.body.app + "' not found.");
-			}
+			(function () {
+				var msPerDay = 1000 * 60 * 60 * 24;
+				var now      = new Date();
+				var daysLeft = Math.ceil((expiry - now) / msPerDay);
+				var isActive = (daysLeft > 0);
+
+				if (found) {
+					res.status(200).send({
+						"status"   : (isActive ? "active" : "inactive"),
+						"days-left": (isActive ? daysLeft : 0         )
+					});
+				} else {
+					res.status(400).send("Product '" + req.body.app + "' not found.");
+				}
+			}());
 		});
 	});
 });
@@ -426,9 +436,10 @@ app.post("/show-purchases", function (req, res) {
 
 			if (purchases) {
 				res.status(200).send(purchases);
+			} else {
+				res.sendStatus(400);
 			}
 		});
-
 	});
 });
 
@@ -466,16 +477,14 @@ app.post("/purchase", function (req, res) {
 								"date"     : (new Date()).toISOString()
 							}
 						}}, function (err, result) {
-
-							if (result) {
-							} else {
-							}
-
 							db.close();
+
+							if (err) {
+								res.sendStatus(500);
+							}
 						}
 					);
 				});
-
 
 				res.status(payment.httpStatusCode).send(payment.state);
 			} else {
