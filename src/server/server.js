@@ -95,6 +95,27 @@ mongodb.connect(dbUrl, function (err, db) {
   	});
 });
 
+app.get("/activate", function (req, res) {
+	var email = req.query.email;
+	var code  = req.query.code;
+
+	if (inactive[email] && (inactive[email].code === code)) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var users = db.collection("users");
+
+			delete inactive[email].code;
+
+			users.insert(inactive[email], function (err, result) {
+				db.close();
+				delete inactive[email];
+				res.redirect("/#login");
+			});
+		});
+	} else {
+		res.status(403).send("Invalid activation code");
+	}
+});
+
 app.post("/activate", function (req, res) {
 	var email = req.body.email;
 	var code  = req.body.code;
@@ -120,18 +141,23 @@ app.post("/register", function (req, res) {
 			var users = db.collection("users");
 
 			users.findOne({ "email": email }, function (err, result) {
-				var code;
+				var code, text;
 
 				if (!result) {
 					code = getRandomInt(1000, 9999).toString();
 
+					text = "To activate your account go to http://" +
+						config.domain + ":" + config.port + "/activate?" +
+						"email=" + encodeURIComponent(email) + "&" +
+						"code=" + code;
+
 					transporter.sendMail({
-						from   : "registrationtesting@rd-arts.com",
-						to     : email,
-						subject: "activation code",
-						text   : code
-					}, function(error, info){
-					    if(error){
+						"from"   : mailConfig.email,
+						"to"     : email,
+						"subject": "Account activation",
+						"text"   : text
+					}, function (error, info) {
+					    if (error) {
 					        console.log("Mail problem:", error);
 					    } else {
 					    	inactive[req.body.email] = {
@@ -143,9 +169,6 @@ app.post("/register", function (req, res) {
 					    	};
 
 					    	res.status(200).send("actvation code sent");
-					    	// Object.keys(info).forEach(function (k, i) {
-					    	// 	console.log(k, info[k]);
-					    	// });
 					    }
 					});
 				} else {
@@ -215,29 +238,6 @@ app.post("/update-profile", function (req, res) {
 		res.status(403).send("Invalid session credentials.");
 	}
 });
-
-// app.post("/register", function (req, res) {
-// 	mongodb.connect(dbUrl, function (err, db) {
-// 		var users = db.collection("users");
-
-// 		users.findOne({ "email": req.body.email }, function (err, result) {
-// 			if (!result) {
-// 				users.insert({
-// 					"name"        : req.body.name,
-// 					"organization": req.body.organization,
-// 					"email"       : req.body.email,
-// 					"password"    : md5(req.body.password)
-// 				}, function (err, result) {
-// 					db.close();
-// 					saveAndSendNewSessionId(req, res);
-// 				});
-// 			} else {
-// 				db.close();
-// 				res.send("Already exists " + req.body.email);
-// 			}
-// 		});
-// 	});
-// });
 
 app.post("/change-password", function (req, res) {
 	var email       = req.body.email;

@@ -78,6 +78,14 @@ $(document).ready(function () {
 		}
 	};
 
+	(function () {
+		if (window.location.hash === "#login") {
+			window.location.hash = "";
+
+			$("#login-register-modal").modal("show");
+		}
+	}());
+
 	$("#logout-btn").on("click", logout);
 
 	(function () {
@@ -304,23 +312,7 @@ $(document).ready(function () {
 				"email"       : $email.val(),
 				"password"    : $password.val()
 			}, function (res) {
-				// login(res);
 				alert(res);
-				$("#register-panel").hide();
-				$("#activate-panel").show();
-				$("#activate-heading a").trigger("click");
-			});
-		});
-
-		$("#activate-form").on("submit", function (event) {
-			event.preventDefault();
-
-			$.post("/activate", {
-				"email": $email.val(),
-				"code" : $("#activate-code").val()
-			} ,function (res) {
-				alert("Activated");
-				login(res);
 			});
 		});
 	}());
