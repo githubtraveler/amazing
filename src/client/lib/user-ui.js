@@ -128,8 +128,6 @@ $(document).ready(function () {
 		});
 	}());
 
-
-
 	$("#purchases-modal").on("show.bs.modal", function (event) {
 		$.post("/show-purchases", {
 			"key"  : localStorage["session-id"],
@@ -149,24 +147,14 @@ $(document).ready(function () {
 		});
 	});
 
-
-
 	$("#password-reset-request").on("click", function (event) {
-		var $email = $("#login-email");
+		var $email = $("#reset-email");
 
 		event.preventDefault();
 
-		$.post("/reset-request", {
-			"email": $email.val()
-		}, function (res) {
-			alert("Password reset code was sent to " + $email.val());
-
-			$("#reset-panel").show();
-			$("#reset-heading a").trigger("click");
-		}).fail(function (event) {
-			console.log("fail");
-		});
-
+		$email.val($("#login-email").val());
+		$("#reset-panel").show();
+		$("#reset-heading a").trigger("click");
 	});
 
 	$("#cc-form").on("submit", function (event) {
@@ -237,17 +225,15 @@ $(document).ready(function () {
 
 	$("#reset-form").on("submit", function (event) {
 		var $email    = $("#login-email");
-		var $code     = $("#reset-code");
 		var $password = $("#reset-password");
 
 		event.preventDefault();
 
 		$.post("/reset-password", {
 			"email"   : $email.val(),
-			"code"    : $code.val(),
 			"password": $password.val()
 		}, function (res) {
-			alert("password udated");
+			alert(res);
 		})
 	});
 
@@ -283,7 +269,9 @@ $(document).ready(function () {
 		});
 
 		$email.on("input", function () {
-			$email[0].setCustomValidity("");
+			if ($email.val().length > 0) {
+				$email[0].setCustomValidity("");
+			}
 		});
 
 	}());

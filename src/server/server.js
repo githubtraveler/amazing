@@ -28,7 +28,7 @@ var md5 = function (s) {
 };
 
 var sessions   = {};
-var resetCodes = {};
+var passResets = {};
 var inactive   = {};
 
 
@@ -47,8 +47,14 @@ var saveAndSendNewSessionInfo = function (req, res, data) {
 	});
 };
 
+var makeEmailLink = function (action, email, code) {
+	return ("http://" + config.domain + ":" + config.port + "/" + action +
+		"?email=" + encodeURIComponent(email) + "&code=" + code
+	);
+};
+
 var getRandomInt = function (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+	return Math.floor(Math.random() * (max - min)) + min;
 };
 
 app.use(bodyParser.json());
@@ -56,21 +62,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
 // app.use(function (req, res, next) {
-    // Website you wish to allow to connect
-    // res.setHeader('Access-Control-Allow-Origin', 'http://rd-arts.com:3000');
+	// Website you wish to allow to connect
+	// res.setHeader('Access-Control-Allow-Origin', 'http://rd-arts.com:3000');
 
-    // Request methods you wish to allow
-    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+	// Request methods you wish to allow
+	// res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Request headers you wish to allow
-    // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	// Request headers you wish to allow
+	// res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    // res.setHeader('Access-Control-Allow-Credentials', true);
+	// Set to true if you need the website to include cookies in the requests sent
+	// to the API (e.g. in case you use sessions)
+	// res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // Pass to next layer of middleware
-    // next();
+	// Pass to next layer of middleware
+	// next();
 // });
 
 paypal.configure(paypalConfig.api);
@@ -84,15 +90,15 @@ mongodb.connect(dbUrl, function (err, db) {
 		if (!collection) {
 			console.log("'users' collection does not exist");
 
-    		db.createCollection("users", function () {
-    			console.log("created 'users' collection");
-    			db.close();
-    		});
+			db.createCollection("users", function () {
+				console.log("created 'users' collection");
+				db.close();
+			});
 		} else {
 			console.log("using existing 'users' collection");
-    		db.close();
+			db.close();
 		}
-  	});
+	});
 });
 
 app.get("/activate", function (req, res) {
@@ -146,10 +152,8 @@ app.post("/register", function (req, res) {
 				if (!result) {
 					code = getRandomInt(1000, 9999).toString();
 
-					text = "To activate your account go to http://" +
-						config.domain + ":" + config.port + "/activate?" +
-						"email=" + encodeURIComponent(email) + "&" +
-						"code=" + code;
+					text = "To activate your account go to " +
+						makeEmailLink("activate", email, code);
 
 					transporter.sendMail({
 						"from"   : mailConfig.email,
@@ -157,19 +161,19 @@ app.post("/register", function (req, res) {
 						"subject": "Account activation",
 						"text"   : text
 					}, function (error, info) {
-					    if (error) {
-					        console.log("Mail problem:", error);
-					    } else {
-					    	inactive[req.body.email] = {
-					    		"code"        : code,
-					    		"name"        : req.body.name,
-					    		"organization": req.body.organization,
-					    		"email"       : email,
-					    		"password"    : md5(req.body.password)
-					    	};
+						if (error) {
+							console.log("Mail problem:", error);
+						} else {
+							inactive[req.body.email] = {
+								"code"        : code,
+								"name"        : req.body.name,
+								"organization": req.body.organization,
+								"email"       : email,
+								"password"    : md5(req.body.password)
+							};
 
-					    	res.status(200).send("actvation code sent");
-					    }
+							res.status(200).send("actvation code sent");
+						}
 					});
 				} else {
 					db.close();
@@ -251,11 +255,8 @@ app.post("/change-password", function (req, res) {
 			{ "email": email, "password": oldPassword },
 			{ "$set": { "password": newPassword }},
 			function (err, result) {
-				console.log(result);
-
 				if (result) {
-					console.log("password changed", newPassword);
-					res.status(200).send("Password changed");
+					res.status(200).send("To complete the password change check your e-mail");
 				} else {
 					res.status(403).send(err);
 				}
@@ -269,57 +270,36 @@ app.post("/change-password", function (req, res) {
 
 app.post("/reset-password", function (req, res) {
 	var email    = req.body.email;
-	var code     = req.body.code;
 	var password = md5(req.body.password);
 
-	if (resetCodes[email] === code) {
-		mongodb.connect(dbUrl, function (err, db) {
-			var users = db.collection("users");
-
-			users.update(
-				{ "email": email },
-				{ "$set": {"password": password }},
-				function (err, result) {
-					if (result) {
-						console.log("password updated", password);
-						res.status(200).send("Password updated");
-					}
-
-					db.close();
-				}
-			);
-		});
-	}
-});
-
-app.post("/reset-request", function (req, res) {
 	mongodb.connect(dbUrl, function (err, db) {
 		var users = db.collection("users");
-		var email = req.body.email;
 
 		users.findOne({ "email": email }, function (err, result) {
 			var code = getRandomInt(1000, 9999).toString();
 
+			var text = "To confirm the change of your password go to " +
+				makeEmailLink("confirm-reset-password", email, code);
+
 			if (result) {
 				transporter.sendMail({
-					from   : "registrationtesting@rd-arts.com",
-					to     : email,
-					subject: "password reset code",
-					text   : code
+					"from"   : mailConfig.email,
+					"to"     : email,
+					"subject": "Confirm password reset",
+					"text"   : text
 				}, function(error, info){
-				    if(error){
-				        console.log(error);
-				    } else {
-				    	resetCodes[email] = code;
+					if(error){
+						console.log(error);
+					} else {
+						passResets[email] = {
+							"password": password,
+							"code"    : code
+						};
 
-				    	Object.keys(info).forEach(function (k, i) {
-				    		console.log(k, info[k]);
-				    	});
-				    }
+					}
 				});
 
-				console.log("email found");
-				res.status(200).send("Approved");
+				res.status(200).send("To complete the password change check your e-mail");
 			} else {
 				console.log("fail", email);
 			}
@@ -327,6 +307,34 @@ app.post("/reset-request", function (req, res) {
 			db.close();
 		});
 	});
+});
+
+app.get("/confirm-reset-password", function (req, res) {
+	var email = req.query.email;
+	var code  = req.query.code;
+
+	if (passResets[email] && (passResets[email].code === code)) {
+		mongodb.connect(dbUrl, function (err, db) {
+			var users = db.collection("users");
+
+			users.update(
+				{ "email": email },
+				{ "$set": {"password": passResets[email].password }},
+				function (err, result) {
+					if (result) {
+						delete passResets[email];
+						res.redirect("/#login");
+					} else {
+						res.status(500).send("Failed to change password");
+					}
+
+					db.close();
+				}
+			);
+		});
+	} else {
+		res.sendStatus(403);
+	}
 });
 
 app.post("/login", function (req, res) {
