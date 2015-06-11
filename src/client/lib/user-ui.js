@@ -40,7 +40,7 @@ $(document).ready(function () {
 
 		$("#login-register-modal").modal("hide");
 		setLoginButtons();
-
+		placeBuyButtons(email, sessionId, "smsprint");
 		sessionLinks();
 	};
 
