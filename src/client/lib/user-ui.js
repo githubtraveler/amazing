@@ -261,19 +261,10 @@ $(document).ready(function () {
 				"password": $password.val()
 			}, function (data) {
 				login($email.val(), data.key, data.name);
-
-				console.log(data.name, " logged in with session id :", data.key);
 			}).fail(function (event) {
-				$email[0].setCustomValidity(event.responseText);
+				alert(event.responseText);
 			});
 		});
-
-		$email.on("input", function () {
-			if ($email.val().length > 0) {
-				$email[0].setCustomValidity("");
-			}
-		});
-
 	}());
 
 	(function registerForm () {
