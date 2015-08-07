@@ -31,6 +31,8 @@ $(document).ready(function () {
 		$userMenuButton.prepend($("<ins/>", {
 			"text": localStorage.name
 		}));
+
+		$("#products").find(".app1.guest").hide();
 	};
 
 	var login = function (email, sessionId, name) {
@@ -64,10 +66,15 @@ $(document).ready(function () {
 	};
 
 	var logout = function () {
+		var $products = $("#products");
+
 		localStorage.clear();
 
 		$("#guest-menu").show();
 		$("#user-menu").hide();
+
+		$products.find(".app1:not(.guest)").hide();
+		$products.find(".app1.guest").show();
 
 		unsessionLinks();
 	};
